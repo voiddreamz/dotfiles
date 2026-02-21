@@ -1,0 +1,31 @@
+# vim:ft=zathurarc
+# zathura/bindings.rc
+# @author nate zhou
+# @since 2023,2024,2025
+
+unmap a
+unmap s
+
+map I recolor
+map n scroll half-down
+map p scroll half-up
+map P print
+map i zoom in
+map o zoom out
+map b toggle_statusbar
+map r rotate rotate-cw
+map R rotate rotate-ccw
+
+map f follow
+
+map w adjust_window width
+map a adjust_window best-fit
+
+map d toggle_page_mode
+map D cycle_first_column
+
+map m mark_add
+map "'" mark_evaluate
+
+map C-i jumplist forward
+map C-o jumplist forward

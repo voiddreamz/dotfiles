@@ -1,0 +1,33 @@
+#!/usr/bin/sh
+# @author nate zhou
+# @since 2024,2025,2026
+# show gallery images with imv, with lastest modified images first
+# imv has max argument limited to 128
+
+LIST="${XDG_RUNTIME_DIR}/gallery.list"
+
+ls -t $(find $HOME/pic/ -type f ) \
+    | grep -v \
+           -e .gpg/ \
+           -e .nsfw/ \
+           -e camera/life-events \
+           -e camera/life-living \
+           -e camera/life-medical \
+           -e camera/life-selfie \
+           -e camera/life-etc \
+           -e icon/ \
+           -e kirei/ \
+           -e memes/ \
+           -e misc/ \
+           -e people/ \
+           -e screen/ \
+           -e screen-web/ \
+           -e unixchad/ \
+    | shuf \
+    > "$LIST"
+
+if [ "$XDG_SESSION_TYPE" = "wayland" ]; then
+    swayimg -g -F "$LIST" -o none
+elif [ -n "$XAUTHORITY" ]; then
+    cat "$LIST" | nsxiv -t -
+fi

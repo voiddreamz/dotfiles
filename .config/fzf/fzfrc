@@ -1,0 +1,11 @@
+# vim:ft=conf
+# @author nate zhou
+# @since 2025,2026
+
+--preview-window=wrap:border-sharp:75%:bottom:
+
+--bind=ctrl-a:first,ctrl-g:last
+--bind=ctrl-j:preview-down,ctrl-k:preview-up
+--bind=ctrl-t:preview-top,ctrl-b:preview-bottom
+
+--color=pointer:#b16286

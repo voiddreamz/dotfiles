@@ -1,0 +1,118 @@
+#!/usr/bin/sh
+# @author nate zhou
+# @since 2025,2026
+# file opener ported from my [lf](../../.config/lf/rifle)
+set -x
+
+f="$1"
+term="footclient"
+
+print_err() {
+    local RED='\033[0;31m'
+    local RESET='\033[0m'
+    printf ${RED}"${1}"${RESET}\\n >&2
+}
+
+open_img() {
+    if [ "$XDG_SESSION_TYPE" = "wayland" ]; then
+        swayimg "$f"
+    elif [ -n "$XAUTHORITY" ]; then
+        nsxiv "$f"
+    else
+        mpv --loop "$f"
+    fi
+}
+
+
+[ -z "$1" ] && print_err "No f specified." && exit 1
+case $(file --mime-type -Lb "$f") in
+    image/x-xcf)
+        gimp "$f"
+        ;;
+    image/*)
+        open_img
+        ;;
+    video/*)
+        mpv --loop "$f"
+        ;;
+    audio/*)
+        [ "$XDG_SESSION_TYPE" != "tty" ] \
+            && "$term" mpv --loop "$f" \
+            || mpv --loop "$f"
+        ;;
+    */pdf|*/epub*)
+        if [ "$XDG_SESSION_TYPE" != "tty" ]; then
+            zathura "$f"
+        else
+            epr "$f"
+        fi
+        ;;
+	application/*opendocument*|*officedocument*)
+        libreoffice "$f"
+        ;;
+    application/octet-stream)
+        case "$f" in
+            *.gpg)
+                ${HOME}/.local/bin/gpg-rifle "$f"
+                ;;
+            *.mp3)
+                [ "$XDG_SESSION_TYPE" != "tty" ] \
+                    && "$term" mpv --loop --audio-display=no "$f" \
+                    || mpv --loop --audio-display=no "$f"
+                ;;
+            *)
+                $EDITOR "$f"
+                ;;
+        esac
+        ;;
+    message/rfc822)
+        [ "$XDG_SESSION_TYPE" != "tty" ] \
+            && "$term" mutt -f "$(realpath $f | rev | cut -d'/' -f3- | rev)" \
+            || mutt -f "$(realpath $f | rev | cut -d'/' -f3- | rev)"
+        ;;
+    text/troff)
+        man -l "$f"
+        ;;
+    text/html)
+        case "$f" in
+            *.svg)
+                open_img
+                ;;
+            *.md)
+                $EDITOR "$f"
+                ;;
+            *)
+                [ "$XDG_SESSION_TYPE" != "tty" ] && $BROWSER "$f" \
+                    || w3m "$f"
+                ;;
+        esac
+        ;;
+    text/*|*/json|inode/x-empty|application/javascript|application/mbox|application/pgp-signature|application/pgp-keys)
+        case "$f" in
+            *.svg)
+                open_img
+                ;;
+            *)
+                $EDITOR "$f"
+                ;;
+        esac
+        ;;
+    application/*)
+        case "$f" in
+            *.epub) # some epub's mime type is application/zip
+                if [ "$XDG_SESSION_TYPE" != "tty" ]; then
+                    zathura "$f"
+                else
+                    epr "$f"
+                fi
+                ;;
+            *)
+                ${HOME}/.local/bin/scope "$f"
+                ;;
+        esac
+        ;;
+    *)
+        print_err "[$(basename $0)]: file type not supported."
+        file --mime-type "$f"
+        ;;
+esac

@@ -1,0 +1,63 @@
+# vim:ft=swayconfig
+# @author nate zhou
+# @since 2023,2024,2025,2026
+
+
+include ${HOME}/.config/i3/colors
+include ${HOME}/.config/i3/bar
+include ${HOME}/.config/i3/autostart
+include ${HOME}/.config/i3/bindings
+include ${HOME}/.config/i3/modes
+include ${HOME}/.config/i3/rules
+
+xwayland disable
+
+output 'eDP-1' mode --custom 2160x1440@60.000Hz pos 0 0
+input "type:keyboard" {
+	repeat_delay 200
+	repeat_rate 30
+    # xkb_options caps:swapescape,altwin:swap_alt_win
+}
+input "type:touchpad" {
+    tap enabled
+    events enabled
+}
+seat seat0 {
+    hide_cursor 3000
+    hide_cursor when-typing enable
+}
+focus_follows_mouse no
+mouse_warping none
+
+# class                 border    backgr    text     indicator child_border
+client.focused          $color14  $color14  $colorbg $colorbg  $color14
+client.focused_inactive $colorbg  $colorbg  $colorbg $colorbg  $colorbg
+client.unfocused        $colorbg  $colorbg  $colorfg $colorbg  $colorbg
+client.urgent           $colorfg  $colorfg  $colorbg $colorfg  $colorfg
+client.placeholder      #$colorbg #$colorbg $colorfg #$colorbg #$colorbg
+
+font monospace 0.001
+titlebar_padding 1
+titlebar_border_thickness 0
+for_window [class=".*"] border pixel 2
+
+default_orientation auto
+popup_during_fullscreen smart
+focus_wrapping yes
+force_display_urgency_hint 200 ms
+focus_on_window_activation urgent
+floating_modifier $mod
+
+workspace 1 output eDP-1
+workspace 2 output eDP-1
+workspace 3 output eDP-1
+workspace 4 output eDP-1
+workspace 5 output eDP-1
+workspace 6 output eDP-1
+workspace 7 output eDP-1
+workspace 8 output eDP-1
+workspace 9 output eDP-1
+workspace 10:0 output eDP-1
+
+gaps inner 0
+gaps outer 0

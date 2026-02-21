@@ -1,0 +1,11 @@
+#!/usr/bin/sh
+# @author nate zhou
+# @since 2023,2024,2025
+# set wallpaper with swaybg
+
+[ ! -d "$1" ] && ln -sf "$(realpath $1)" ~/Pictures/w1.jpg;
+
+pgrep -x "mpvpaper" > /dev/null && killall -e "mpvpaper"
+
+killall swaybg
+nohup swaybg -i $HOME/.local/share/wallpaper -m fill >/dev/null 2>&1 &

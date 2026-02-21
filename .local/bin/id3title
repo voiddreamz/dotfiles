@@ -1,0 +1,33 @@
+#!/usr/bin/sh
+# @author nate zhou
+# @since 2024,2025
+# @depends python-mutagen
+# add title tags to audio files, using the file name except the extension
+
+
+cat << _EOF_
+USAGE: $(basename "$0") FILES...
+add title tags using the file name excluding the extension
+_EOF_
+
+read -p "continue?(y/n)" choice && [ $choice = 'y' ] || exit 0
+
+add_title() {
+    file="$1"
+
+    filename=$(basename "$file")
+
+    # bash's brace expansion (another example is `mkdir {2007..2009}-{01..12}`)
+    # remove the shortest suffix pattern that matches the pattern .* (i.e., any
+    # characters followed by a dot) from the value of the filename variable.
+    title="${filename%.*}"
+
+    mid3v2 -t "$title" "$file"
+}
+
+for file in "$@"; do
+    add_title "$file"
+done
+
+
+

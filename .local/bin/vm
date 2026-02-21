@@ -1,0 +1,6 @@
+#!/usr/bin/sh
+# @author nate zhou
+# @since 2024,2025
+# abbreviation for wmenu-run
+
+exec virt-manager

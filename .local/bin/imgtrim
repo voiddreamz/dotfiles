@@ -1,0 +1,8 @@
+#!/usr/bin/sh
+# @author nate zhou
+# @since 2025
+# trim image borders in bulk
+
+for i in "$@"; do
+    convert -trim "$i" "new-$i"
+done

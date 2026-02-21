@@ -1,0 +1,150 @@
+#!/usr/bin/sh
+# @author nate zhou
+# @since 2025,2026
+# seal - GPG script to {en,de}crypt|preview|sign|verify a file with dynamic
+# menu or fzf. Each option can also be bound in lf for convenience.
+# @depends gpg, wmenu or dmenu, fzf, libnotify
+# Also see `./gpg-rifle`
+
+# lf/bindings.rc
+# map Sr $~/.local/bin/seal --rifle $f
+# map Sc $~/.local/bin/seal --cipher $f
+# map Se $~/.local/bin/seal --encrypt $f
+# map Sd $~/.local/bin/seal --decrypt $f
+# map Ss $~/.local/bin/seal --sign $f
+# map Sv $~/.local/bin/seal --verify $f | less
+
+# This script has completions: `.config/{z,ba}sh/completions/_scripts.{z,ba}sh`
+
+CIPHER_ALGO="aes256"
+
+prompt="[$(basename $0)]"
+file="$2"
+
+usage() {
+    cat <<_EOF_
+USAGE
+        $(basename $0) OPTION FILE
+        GPG scripts to {en,de}crypt|preview|sign|verify with wmenu(wayland),
+        dmenu(xorg) or fzf(tty).
+        Each option can also be bound in lf for convenience.
+OPTIONS
+        -c,--cipher     enter a passphrase and encrypt the file with $CIPHER_ALGO
+        -e,--encrypt    choose a public key and encrypt the file
+        -d,--decrypt    decrypt the gpg encrypt file
+        -r,--rifle      preview encrypted gpg files without writing to disk
+        -s,--sign       choose a secret key and detach sign the file in ascii
+        -v,--verify     verify a gpg signature
+        -h,--help       print this manual
+_EOF_
+
+exit 0
+}
+
+notify() {
+    echo "${RED}${1}${RESET}"
+    notify-send -r 666 "$(basename $0)" "$1" 2>/dev/null
+}
+
+abort() {
+    RED='\033[0;31m'
+    RESET='\033[0m'
+    notify "$1" >&2
+    exit 1
+}
+
+set_menu() {
+    if [ "$XDG_SESSION_TYPE" = "wayland" ]; then
+        menu="${HOME}/.local/bin/wmenu-color"
+    elif [ -n "$XAUTHORITY" ]; then
+        menu="dmenu"
+    else
+        menu="fzf"
+    fi
+}
+
+cipher() {
+    if [ "$XDG_SESSION_TYPE" = "tty" ]; then
+        gpg -c "$file"
+    else
+        pass1=$($menu -P -p "$prompt ciper passphrase: " < /dev/null)
+        [ -z "$pass1" ] && abort "Aborted: passphrase is empty"
+
+        pass2=$($menu -P -p "$prompt re-enter passphrase: " < /dev/null)
+        [ "$pass1" != "$pass2" ] && abort "Aborted: inputs are not indentical"
+
+        echo "$pass1" | gpg -c --cipher-algo "$CIPHER_ALGO" --no-symkey-cache \
+                            --batch --passphrase-fd 0 --pinentry-mode loopback \
+                            "$file" \
+            && notify "Encryption finished" \
+            || abort "Encryption failed"
+    fi
+}
+
+encrypt() {
+    if [ "$menu" = "fzf" ]; then
+        menu="${menu} --prompt"
+    else
+        menu="${menu} -l 5 -p"
+    fi
+
+    pubkey="$(gpg --list-keys \
+           | sed -n 's/.*<\(.*\)>.*/\1/p' \
+           | $menu "$prompt encrypt with pubkey: ")"
+    [ -z "$pubkey" ] && abort "Aborted: no pubkey selected"
+
+    gpg -e --no-symkey-cache --recipient "$pubkey" "$file" \
+        && notify "Encryption finished" \
+        || abort "Encryption failed"
+}
+
+decrypt() {
+    local pass=""
+
+    if [ "$menu" = "fzf" ]; then
+        read -p "$prompt decryption passphrase: " -r pass
+    else
+        menu="${menu} -P -p"
+        pass="$($menu "$prompt decyrption passphrase: " < /dev/null)"
+    fi
+    echo "$pass" | gpg --no-symkey-cache \
+                       --batch \
+                       --passphrase-fd 0 \
+                       -d "$file" \
+                 && notify "Decryption finished" || abort "Decryption failed"
+}
+
+sign() {
+    if [ "$menu" = "fzf" ]; then
+        menu="{menu} --prompt"
+    else
+        menu="${menu} -l 5 -p"
+    fi
+
+    seckey="$(gpg --list-secret-keys \
+           | sed -n 's/.*<\(.*\)>.*/\1/p' \
+           | $menu "$prompt sign with seckey: ")"
+    [ -z "$seckey" ] && abort "Aborted: no seckey selected"
+
+    gpg --no-symkey-cache --detach-sign --armor --local-user "$seckey" "$file" \
+        && notify "Singing finished" \
+        || abort "Signing failed"
+}
+
+verify() {
+    gpg --verify "$file" \
+        && notify "Verification succeeded" \
+        || abort "Verification failed"
+}
+
+[ "$#" -ne 2 ] && usage || set_menu
+
+case "$1" in
+    -c|--cipher) cipher;;
+    -e|--encrypt) encrypt ;;
+    -d|--decrypt) decrypt ;;
+    -r|--rifle) ${HOME}/.local/bin/gpg-rifle "$file" ;;
+    -s|--sign) sign ;;
+    -v|--verify) verify ;;
+    *) usage ;;
+esac

@@ -1,0 +1,57 @@
+patch:
+  "style/layout/hilite_padding_y": 5
+  "style/color_scheme": "dark_temple"
+  "style/layout/margin_x": 12
+  "style/label_format": "%s."
+  "style/vertical_text_left_to_right": true
+  "style/layout/type": vertical
+  "style/layout/shadow_offset_y": "8"
+  "style/font_point": 14
+  "style/layout/align_type": center
+  "style/antialias_mode": default
+  "show_notifications": true
+  "style/color_scheme_dark": "ink"
+  "style/layout/margin_y": 12
+  "menu/alternative_select_labels": [1,2,3,4,5,6,7,8,9,]
+  "style/ascii_tip_follow_cursor": true
+  "style/layout/spacing": 18
+  "style/comment_font_face": "Honor Sans CN"
+  "style/layout/round_corner": 8
+  "global_ascii": false
+  "style/enhanced_position": true
+  "style/vertical_text": true
+  "show_notifications_time": 1400
+  "style/layout/candidate_spacing": 15
+  "style/paging_on_scroll": false
+  "style/label_font_point": 14
+  "style/label_font_face": "Honor Sans CN"
+  "style/layout/hilite_spacing": 10
+  "style/display_tray_icon": false
+  "style/layout/max_height": 2800
+  "style/vertical_text_with_wrap": false
+  "style/font_face": "Honor Sans CN"
+  "style/layout/min_height": 0
+  "style/candidate_abbreviate_length": 0
+  "schema/full_icon": "icons/full.ico"
+  "style/layout/max_width": 2800
+  "schema/ascii_icon": "icons/en.ico"
+  "style/layout/hilite_padding_x": 5
+  "schema/icon": "icons/zh.ico"
+  "style/fullscreen": false
+  "style/layout/shadow_radius": 8
+  "style/layout/border": 1
+  "style/vertical_auto_reverse": false
+  "style/layout/border_width": 1
+  "style/layout/corner_radius": 8
+  "style/horizontal": true
+  "style/layout/min_width": 80
+  "style/layout/hilite_padding": 5
+  "style/mark_text": ""
+  "style/comment_font_point": 14
+  "style/preedit_type": composition
+  "style/click_to_capture": false
+  "style/mouse_hover_ms": 0
+  "schema/half_icon": "icons/half.ico"
+  "style/inline_preedit": false
+  "style/hover_type": none
+  "style/layout/shadow_offset_x": "-8"

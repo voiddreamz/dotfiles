@@ -1,0 +1,19 @@
+#!/usr/bin/sh
+# @author nate zhou
+# @since 2023,2025
+# gps-rm
+
+echo "removes GPS metadata for images, and videos like mp4"
+
+echo "exiftool \"-gps*=\" $@"
+
+read -p "Do you want to continue? (y/n): " choice
+
+case $choice in
+    y|Y)
+	    exiftool "-gps*=" $@,2025
+        ;;
+    *)
+        echo "aborted"
+        exit 0
+esac

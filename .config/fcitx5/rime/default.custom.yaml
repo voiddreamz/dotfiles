@@ -1,0 +1,17 @@
+customization:
+  distribution_code_name: Weasel
+  distribution_version: 0.17.4
+  generator: "Rime::SwitcherSettings"
+  modified_time: "Mon Jan  5 12:47:21 2026"
+  rime_version: 1.13.1
+patch:
+  schema_list:
+    - { schema: moran }
+    - { schema: moran_fixed }
+    - { schema: moran_sentence }
+    - { schema: tiger }
+    - { schema: moran_japanese }
+  key_binder:
+    bindings:
+      - { when: has_menu, accept: comma, send: "2" }
+      - { when: has_menu, accept: period, send: "3" }

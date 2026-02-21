@@ -1,0 +1,18 @@
+#!/usr/bin/sh
+# @author nate zhou
+# @since 2025
+# @depends python-mutagen
+# TRCK tag for files with the seq prefix, e.g `[01-99]*.mp3`
+
+cat << _EOF_
+USAGE: $(basename "$0") FILES...
+FILES should have the numeric sequnce prefixes, e.g 01*.mp3... 99*.mp3, etc.
+A coresponding numeric id3 tag "TRCK" will be assigned to passed files.
+_EOF_
+
+read -p "continue?(y/n)" choice && [ $choice = 'y' ] || exit 0
+
+for i in $(seq -w 1 $#); do
+    filename="$(basename $i*)" # glob doesn't work in quotes for mid3v2
+    mid3v2 -T "$i" "$filename" # glob must be quoted in case of special char
+done

@@ -1,0 +1,20 @@
+#!/bin/sh
+# xrun - Smart X11 application launcher for on-demand Xwayland
+
+# 1. 检查 xwayland-satellite 是否已经运行
+if ! pgrep -x "xwayland-satellite" > /dev/null; then
+    echo "Xwayland not running. Starting it now..."
+    # 在后台启动 xwayland-satellite
+    # 重定向输出到 /dev/null 来保持终端干净
+    xwayland-satellite > /dev/null 2>&1 &
+    # 等待一小会儿以确保 X server 初始化完成
+    sleep 1
+fi
+
+# 2. 执行传入的命令
+# "$@" 会将所有传递给 xrun 的参数原封不动地传递给要执行的程序
+if [ $# -gt 0 ]; then
+    exec env DISPLAY=:0"$@"
+else
+    echo "Usage: xrun <x11_application> [arguments]"
+fi

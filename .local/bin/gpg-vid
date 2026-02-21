@@ -1,0 +1,23 @@
+#!/usr/bin/sh
+# @author nate zhou
+# @since 2024,2025
+# decrypt the .gpg file and pipe to mpv, without writing to the disk
+# the video file has to be streamable, triming a mp4 file with ffmpeg could make it non-streamable
+# fix it by copy the movflags of the orgianl file
+# ffmpeg -i output.mp4 -c copy -movflags faststart new_output.mp4
+
+usage() {
+    cat << _EOF_
+USAGE
+        $(basename "$0") FILE
+_EOF_
+}
+[ $# -eq 0 ] && (usage; exit 1)
+
+gpg_passphrase=$(echo "" | wmenu-color -P -p "[$(basename $0)] passphrase:")
+
+[ -z "$gpg_passphrase" ] && exit 1
+
+echo "$gpg_passphrase" \
+    | gpg  --no-symkey-cache --batch --passphrase-fd 0 -d "$1" \
+    | mpv - --loop --no-resume-playback

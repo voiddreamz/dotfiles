@@ -1,0 +1,14 @@
+#!/usr/bin/sh
+# @author nate zhou
+# @since 2025,2026
+# river/init
+# river-0.4.0
+
+# my build of kwm
+# https://codeberg.org/unixchad/kwm
+# https://github.com/gnuunixchad/kwm
+/usr/local/bin/kwm &
+
+${HOME}/.local/bin/damblocks --fifo &
+killall -q mpc
+${HOME}/.local/bin/damblocks-mpdd

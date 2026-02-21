@@ -1,0 +1,44 @@
+# Rime table
+#@/db_name	moran_fixed_simp
+#@/db_type	tabledb
+#@/rime_version	1.13.1
+#@/tick	54
+测试	ceui	1
+成	ig	1
+极	ji	1
+几	jo	3
+六	lqw	1
+没	m	1
+凭什么	psm	1
+如果	rg	1
+什么	sm	1
+羧	soy	2
+所以	soyi	1
+所以	sy	2
+他	t	1
+他们	tm	1
+天	tm	2
+事	ui	1
+士	uiaa	1
+势	uil	1
+施斋	uivl	2
+这个	veg	2
+着	vey	1
+折腰	veyk	2
+治	vidt	8
+治疗	vilc	1
+志	vix	1
+秩序	vixu	1
+望	whw	1
+我们	wm	1
+我们	wom	1
+我们	womf	1
+为什么	wsm	1
+武	wuv	1
+息	xix	1
+现	xmw	1
+须	xup	1
+一	y	1
+一个	yg	1
+一行	yihh	1
+有什么	ysm	1

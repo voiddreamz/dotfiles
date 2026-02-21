@@ -1,0 +1,177 @@
+__build_info:
+  rime_version: 1.13.1
+  timestamps:
+    default: 1766378433
+    default.custom: 1768371347
+    key_bindings: 1764576760
+    key_bindings.custom: 0
+    punctuation: 1764576760
+    punctuation.custom: 0
+    stroke.custom: 0
+    stroke.schema: 1749012323
+abc_segmentor:
+  extra_tags:
+    - reverse_lookup
+engine:
+  processors:
+    - ascii_composer
+    - recognizer
+    - key_binder
+    - speller
+    - punctuator
+    - selector
+    - navigator
+    - express_editor
+  segmentors:
+    - ascii_segmentor
+    - matcher
+    - abc_segmentor
+    - punct_segmentor
+    - fallback_segmentor
+  translators:
+    - punct_translator
+    - reverse_lookup_translator
+    - table_translator
+key_binder:
+  bindings:
+    - {accept: comma, send: 2, when: has_menu}
+    - {accept: period, send: 3, when: has_menu}
+    - {accept: d, send: n, when: always}
+    - {accept: t, send: h, when: always}
+    - {accept: j, send: h, when: always}
+    - {accept: k, send: s, when: always}
+    - {accept: l, send: p, when: always}
+    - {accept: u, send: n, when: always}
+    - {accept: i, send: z, when: always}
+    - {accept: KP_1, send: h, when: always}
+    - {accept: KP_2, send: s, when: always}
+    - {accept: KP_3, send: p, when: always}
+    - {accept: KP_4, send: n, when: always}
+    - {accept: KP_5, send: z, when: always}
+    - {accept: KP_6, send: Select, when: has_menu}
+    - {accept: KP_7, send: Select, when: has_menu}
+    - {accept: KP_8, send: Select, when: has_menu}
+    - {accept: KP_9, send: Select, when: has_menu}
+    - {accept: KP_0, send: Select, when: has_menu}
+  import_preset: default
+menu:
+  page_size: 9
+punctuator:
+  full_shape:
+    " ": {commit: "　"}
+    "!": {commit: "！"}
+    "\"": {pair: ["“", "”"]}
+    "#": ["＃", "⌘"]
+    "$": ["￥", "$", "€", "£", "¥", "¢", "¤"]
+    "%": ["％", "°", "℃"]
+    "&": "＆"
+    "'": {pair: ["‘", "’"]}
+    "(": "（"
+    ")": "）"
+    "*": ["＊", "·", "・", "×", "※", "❂"]
+    "+": "＋"
+    ",": {commit: "，"}
+    "-": "－"
+    .: {commit: "。"}
+    "/": ["／", "÷"]
+    ":": {commit: "："}
+    ";": {commit: "；"}
+    "<": ["《", "〈", "«", "‹"]
+    "=": "＝"
+    ">": ["》", "〉", "»", "›"]
+    "?": {commit: "？"}
+    "@": ["＠", "☯"]
+    "[": ["「", "【", "〔", "［"]
+    "\\": ["、", "＼"]
+    "]": ["」", "】", "〕", "］"]
+    "^": {commit: "……"}
+    _: "——"
+    "`": "｀"
+    "{": ["『", "〖", "｛"]
+    "|": ["·", "｜", "§", "¦"]
+    "}": ["』", "〗", "｝"]
+    "~": "～"
+  half_shape:
+    "!": {commit: "！"}
+    "\"": {pair: ["“", "”"]}
+    "#": "#"
+    "$": ["￥", "$", "€", "£", "¥", "¢", "¤"]
+    "%": ["%", "％", "°", "℃"]
+    "&": "&"
+    "'": {pair: ["‘", "’"]}
+    "(": "（"
+    ")": "）"
+    "*": ["*", "＊", "·", "・", "×", "※", "❂"]
+    "+": "+"
+    ",": {commit: "，"}
+    "-": "-"
+    .: {commit: "。"}
+    "/": ["、", "/", "／", "÷"]
+    ":": {commit: "："}
+    ";": {commit: "；"}
+    "<": ["《", "〈", "«", "‹"]
+    "=": "="
+    ">": ["》", "〉", "»", "›"]
+    "?": {commit: "？"}
+    "@": "@"
+    "[": ["「", "【", "〔", "［"]
+    "\\": ["、", "\\", "＼"]
+    "]": ["」", "】", "〕", "］"]
+    "^": {commit: "……"}
+    _: "——"
+    "`": "`"
+    "{": ["『", "〖", "｛"]
+    "|": ["·", "|", "｜", "§", "¦"]
+    "}": ["』", "〗", "｝"]
+    "~": ["~", "～"]
+  import_preset: default
+recognizer:
+  import_preset: default
+  patterns:
+    email: "^[A-Za-z][-_.0-9A-Za-z]*@.*$"
+    reverse_lookup: "`[a-z]*'?$"
+    uppercase: "[A-Z][-_+.'0-9A-Za-z]*$"
+    url: "^(www[.]|https?:|ftp[.:]|mailto:|file:).*$|^[a-z]+[.].+$"
+reverse_lookup:
+  comment_format:
+    - "xlit/hspnz/⼀⼁⼃⼂⼄/"
+  dictionary: luna_pinyin
+  preedit_format:
+    - "xform/([nl])v/$1ü/"
+    - "xform/([nl])ue/$1üe/"
+    - "xform/([jqxy])v/$1u/"
+  prefix: "`"
+  suffix: "'"
+  tips: "〔拼音〕"
+schema:
+  author:
+    - "四季的風"
+    - "雪齋"
+    - "Kunki Chou"
+  dependencies:
+    - luna_pinyin
+  description: |
+    五筆畫
+    h,s,p,n,z 代表橫、豎、撇、捺、折
+
+  name: "五筆畫"
+  schema_id: stroke
+  version: 0.5
+speller:
+  alphabet: abcdefghijklmnopqrstuvwxyz
+  delimiter: " '"
+switches:
+  - name: ascii_mode
+    reset: 0
+    states: ["中文", "西文"]
+  - name: full_shape
+    states: ["半角", "全角"]
+  - name: ascii_punct
+    states: ["。，", "．，"]
+translator:
+  comment_format:
+    - "xform/~//"
+    - "xlit/hspnz/⼀⼁⼃⼂⼄/"
+  dictionary: stroke
+  preedit_format:
+    - "xlit/hspnz/⼀⼁⼃⼂⼄/"

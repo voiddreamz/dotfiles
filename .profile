@@ -1,0 +1,17 @@
+# vim.ft=bash
+# .profile
+# @author nate zhou
+# @since 2023,2024,2025,2026
+# bash specific profile
+
+[ -f $HOME/.config/shell/profile.sh ] && . $HOME/.config/shell/profile.sh
+
+[[ -n "$BASH_VERSION" && -f "$HOME/.bashrc" ]] && . "$HOME/.bashrc"
+
+# Added by Toolbox App
+export PATH="$PATH:/home/voiddreamz/.local/share/JetBrains/Toolbox/scripts"
+
+[ -d "$XDG_STATE_HOME"/bash ] || mkdir -p $XDG_STATE_HOME/bash
+export HISTFILE="$XDG_STATE_HOME/bash/history"
+
+export HISTIGNORE="cd:cd -:cd ..:pwd:ls:exit"

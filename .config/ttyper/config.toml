@@ -1,0 +1,30 @@
+# ttyper/config.toml
+# @author nate zhou
+# @since 2023,2024,2025
+
+default_language = "english1000"
+
+[theme]
+default = "none"
+title = "white;bold"
+
+input_border = "lightcyan"
+prompt_border = "lightcyan"
+border_type = "rounded"
+
+prompt_correct = "green;dim"
+prompt_incorrect = "red"
+prompt_untyped = "gray"
+prompt_current_correct = "green;bold"
+prompt_current_incorrect = "red;bold"
+prompt_current_untyped = "white;bold"
+prompt_cursor = "cyan;bold;reversed"
+
+results_overview = "cyan;bold"
+results_overview_border = "cyan"
+results_worst_keys = "cyan;bold"
+results_worst_keys_border = "cyan"
+results_chart = "cyan"
+results_chart_x = "cyan"
+results_chart_y = "gray;italic"
+results_restart_prompt = "gray;italic"

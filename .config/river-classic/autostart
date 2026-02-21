@@ -1,0 +1,41 @@
+#!/usr/bin/sh
+# @author nate zhou
+# @since 2025
+# river/autostart
+
+spawn="riverctl spawn"
+
+# always
+# Xwayland-Satellite
+$spawn "export DISPLAY=:0" &
+#$spawn ""
+$spawn "${HOME}/.local/bin/dam-run" &
+$spwan "/usr/lib/hyprpolkitagent/hyprpolkitagent" &
+$spwan "wlr-randr --output eDP-1 --mode 2160x1440@60.000999Hz --scale 1.5" &
+$spawn "kanshi" &
+$spwan "/usr/lib/xdg-desktop-portal-termfilechooser -r &" &
+# restart
+killall -q swaybg fcitx5 mpc &
+
+$spawn "swaybg -i ${HOME}/pic/wallpaper/w2.jpg -m fill" &
+#$spawn "swaybg -c 000000" &
+
+# restart decided by scripts
+$spawn "${HOME}/.local/bin/foots" &
+
+# $spawn "${HOME}/.local/bin/lucia -d" &
+
+$spawn "${HOME}/.local/bin/mbs-cron" &
+
+# start if not running
+pgrep 'swayidle' || $spawn "swayidle" &
+
+# pgrep "gammastep" || $spawn "gammastep -O 5000" &
+
+pgrep -f 'wl-paste --watch cliphist store' || $spawn "wl-paste --watch cliphist store" &
+
+pgrep 'dunst' || $spawn "dunst" &
+
+pgrep 'wob' || $spawn "${HOME}/.local/bin/wobd" &
+
+$spawn "fcitx5 -d --verbose '*=0'" & # conflicts with wtype

@@ -1,0 +1,105 @@
+#!/usr/bin/sh
+# @author nate zhou
+# @since 2025
+# generate language file for ttyper from executables in PATH
+
+LANG_DIR="${HOME}/.config/ttyper/language"
+INPUT="${LANG_DIR}/built-in"
+OUTPUT="${LANG_DIR}/bash"
+
+[ -d "LANG_DIR"  ] || mkdir -p "$LANG_DIR"
+
+no_input() {
+    cat << _EOF_
+input file doesn't exist: $INPUT
+generate it by running following in an interactive shell:
+        compgen -b > $INPUT
+_EOF_
+
+    exit 1
+}
+
+[ -f "$INPUT" ] || no_input
+
+
+clean_up () {
+    > "${LANG_DIR}/bash"
+}
+
+add_symbol() {
+    cat "${LANG_DIR}/symbol-list" >> "$OUTPUT"
+}
+
+gen_built_in() {
+    # interactive shell $ compgen -b
+    cat "${LANG_DIR}/built-in" >> "$OUTPUT"
+}
+
+gen_gnu() {
+    pacman -Qlq coreutils | grep -E '/usr/bin/.+' \
+                          | xargs -I {} basename {} >> "$OUTPUT"
+}
+
+gen_linux() {
+    pacman -Qlq util-linux | grep -E '/usr/bin/.+' \
+                           | xargs -I {} basename {} >> "$OUTPUT"
+}
+
+gen_all () {
+    add_symbol
+    gen_built_in
+    printenv PATH | tr ':' '\n' \
+                  | grep -v '/\.local/sbin' \
+                  | xargs -I {} ls {} >> "${LANG_DIR}/bash"
+}
+
+usage () {
+    cat << _EOF_
+[$(basename $0)] generate bash language file for ttyper
+usage:
+    -h,--help   print this manual
+    -a,--all    generate all executables
+    -b,--bash   generate bash builtin
+    -g,--gnu    generate gnu coreutils
+    -l,--linux  generate util-linux
+_EOF_
+}
+
+if [ "$#" -eq 0 ]; then
+    clean_up
+    add_symbol
+    gen_built_in
+    gen_gnu
+    gen_linux
+    echo "Language file generated: $OUTPUT"
+    exit 0
+fi
+
+clean_up
+
+while [ -n "$1" ]; do
+    case "$1" in
+        -h | --help)
+            usage
+            exit 0
+            ;;
+        -a | --all)
+            gen_all
+            exit 0
+            ;;
+        -b | --bash)
+            gen_built_in
+            ;;
+        -g | --gnu)
+            gen_gnu
+            ;;
+        -l | --linux)
+            gen_linux
+            ;;
+        *)
+            usage
+            exit 1
+            ;;
+    esac
+    shift
+done && echo "Language file generated: $OUTPUT"

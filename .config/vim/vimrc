@@ -1,0 +1,51 @@
+" vim:ft=vim
+" .config/vim/vimrc
+" @author nate zhou
+" @since 2023,2024,2025,2026
+
+source ${HOME}/.config/vim/autocmd.vim
+source ${HOME}/.config/vim/bindings.vim
+
+set viminfofile=~/.config/vim/viminfo
+
+set encoding=utf-8
+
+set mouse=          " Disable mouse button moving cursor
+
+set clipboard=unnamedplus
+
+set ignorecase      " searching case incensitive
+set smartcase       " except patterns contain uppercase
+
+" visual
+set statusline+=%f\ %h%m%r%=\ %-16.(%)\ %c[%l/%L\ %P]
+set laststatus=2
+
+set number
+set relativenumber
+
+set cc=80
+set cursorline
+set cursorcolumn
+
+syntax on
+if &diff
+    syntax off
+    colorscheme industry
+endif
+
+set termguicolors
+set background=dark
+
+" highlight all trailing spaces
+highlight TrailingSpace ctermbg=gray guibg=gray
+call matchadd('TrailingSpace', '\s\+$')
+
+" indentation
+set expandtab		" <Tab> expands spaces instead of \t
+set tabstop=4		" spaces per <Tab>
+set shiftwidth=4	" spaces per indentation level
+set smartindent		" indentation is aware of newline insert
+
+set splitbelow
+set splitright

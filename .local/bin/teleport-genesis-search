@@ -1,0 +1,18 @@
+#!/usr/bin/sh
+# @author nate zhou
+# @since 2025
+# keybindings reference for `teleport-genesis`
+# @depends fzf wmenu (for fuzzy finding)
+# send a XDG notification if not in tty
+
+# silent bash's complaining when running in tmux
+source $HOME/.local/bin/wmenu-color 2>/dev/null
+
+TELEPORT_CONF="$HOME/.config/shell/teleport.conf"
+
+if [ "$XDG_SESSION_TYPE" = "wayland" ] && [ ! -n "$TMUX" ]; then
+    grep '^[^#]' "$TELEPORT_CONF" | wmenu-color "-p[$(basename $0)]" "-l 9"
+else
+    grep '^[^#]' "$TELEPORT_CONF" | fzf --no-preview
+fi
+

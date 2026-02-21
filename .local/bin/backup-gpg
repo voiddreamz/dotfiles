@@ -1,0 +1,12 @@
+#!/usr/bin/sh
+# @author nate zhou
+# @since 2025
+# export all public and secret gpg keys
+
+TARGET_DIR="${HOME}/doc/.gpg/gpg-keys"
+[ -d "$TARGET_DIR" ] || mkdir -p "$TARGET_DIR"
+
+name_format="$(whoami)@$(hostnamectl hostname)-$(date +%Y-%m-%d_%H_%M)"
+
+gpg --armor --export > "${TARGET_DIR}/${name_format}.asc.pub"
+gpg --armor --export-secret-keys > "${TARGET_DIR}/${name_format}.asc.sec"

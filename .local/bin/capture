@@ -1,0 +1,130 @@
+#!/usr/bin/sh
+# @author nate zhou
+# @since 2024,2025,2026
+# capture - select output and audio source for screen casting via danymic menu
+# @depends wlr-randr xrandr(xorg) wl-recorder ffmpeg(xorg) wmenu dmenu(xorg)
+
+# This script has completions: `.config/{z,ba}sh/completions/_scripts.{z,ba}sh`
+
+
+CAPTURE_HOME="${HOME}/tmp/capture"
+[ -d "$CAPTURE_HOME" ] || mkdir -p $CAPTURE_HOME
+
+fps=30
+filename="${CAPTURE_HOME}/$(date +%Y-%m-%d_%H_%M_%S)"
+extension="mp4"
+
+usage() {
+    cat <<_EOF_
+USAGE
+        $(basename $0) [OPTION]...
+        Select output and audio source for screen casting via danymic menu.
+        Default fomart is mp4 in 30FPS
+OPTIONS
+        -6,--60     record in 60FPS
+        -m,--mkv    record in mkv
+        -M,--mute   record without audio
+_EOF_
+
+exit 0
+}
+
+notify() {
+    echo "${RED}${1}${RESET}"
+    [ "$XDG_SESSION_TYPE" != "tty" ] && notify-send -r 666 "$(basename $0)" "$1"
+}
+
+abort() {
+    RED='\033[0;31m'
+    RESET='\033[0m'
+    notify "$1" >&2
+    exit 1
+}
+
+notifyStop() {
+    notify "Stopped on $output\n$source"
+    exit 0
+}
+
+set_menu() {
+    if [ "$XDG_SESSION_TYPE" = "wayland" ]; then
+        menu="${HOME}/.local/bin/wmenu-color"
+    elif [ -n "$XAUTHORITY" ]; then
+        menu="dmenu"
+    fi
+}
+
+setOutput() {
+    if [ "$XDG_SESSION_TYPE" = "wayland" ]; then
+        wlr-randr \
+            | grep '^[^[:space:]]'\
+            | $menu -p "[output]" -l 3 \
+            | tr -d '()' \
+            | cut -d' ' -f-1
+    elif [ -n "$XAUTHORITY" ]; then
+        xrandr \
+            | grep ' connected '\
+            | $menu -p "$(basename $0)" -l 3 \
+            | sed 's/ primary / /' \
+            | cut -d' ' -f3
+    fi
+}
+
+setSource() {
+    source="$(pw-dump \
+              | grep "\"node.name\":" \
+              | sort \
+              | $menu -p "[source]" -l 6 \
+              | cut -d'"' -f4)"
+}
+
+startCapture() {
+    output="$(setOutput)"
+    [ -z "$output" ] && abort "No output selected"
+
+    if [ "$isMute" != "true" ]; then
+        setSource
+        [ -z "$source" ] && abort "No audio source selected"
+    else
+        notify "No audio source included"
+        source=""
+        audioOption=""
+    fi
+
+    notify "Capturing on $output\n$source"
+
+    trap notifyStop EXIT INT TERM
+
+    if [ "$XDG_SESSION_TYPE" = "wayland" ]; then
+        wf-recorder --framerate "$fps" \
+                    --output "$output" \
+                    -a "$source" \
+                    -c h264_vaapi \
+                    -f "${filename}.${extension}"
+    elif [ -n "$XAUTHORITY" ]; then
+        SIZE=$(echo $output | cut -d+ -f1)
+        X=$(echo $output | cut -d+ -f2)
+        Y=$(echo $output | cut -d+ -f3)
+
+        ffmpeg -f x11grab -framerate "$fps" \
+                    -video_size $SIZE -i :0.0+$X,$Y \
+                    -f pulse -i "$source" \
+                    -c:v h264 \
+                    -crf 0 -preset ultrafast \
+                    "${filename}.${extension}"
+    fi
+}
+
+set_menu
+
+[ -z "$1" ] && startCapture
+
+while [ ! -z "$1" ]; do
+    case "$1" in
+        -6|--60) fps=60 ;;
+        -m|--mkv) extension="mkv" ;;
+        -M|--mute) isMute="true" ;;
+        *) usage ;;
+    esac
+    shift
+done && startCapture

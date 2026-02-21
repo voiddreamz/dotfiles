@@ -1,0 +1,34 @@
+#!/usr/bin/sh
+# @author nate zhou
+# @since 2025
+# remove pacman's packages cache
+# @depends pacman-contrib
+
+NVIDIA_DEPS="egl-gbm,egl-wayland,egl-wayland2,egl-x11,eglexternalplatform,dkms"
+NVIDIA="nvidia-utils,nvidia-open,nvidia-open-dkms,nvtop,${NVIDIA_DEPS}"
+
+IGNORED_PKGS="intel-ucode,amd-ucode,${NVIDIA}"
+
+removeUninstalled() {
+    sudo paccache --verbose --remove --ignore "$IGNORED_PKGS" \
+                  --uninstalled --keep 0
+}
+
+removeOldEnough() {
+    sudo paccache --verbose --remove --keep 3
+}
+
+removeOldEnoughYay() {
+    CACHE="${HOME}/pkg/yay/"
+    for cache_dir in $(find "$CACHE" -maxdepth 1 -type d ! -path "$CACHE"); do
+        sudo paccache --quiet --remove --keep 3 --cachedir "$cache_dir" &
+    done && echo "cleared old enough packages in $CACHE"
+    wait
+}
+
+set -x
+removeUninstalled
+removeOldEnough
+set +x
+removeOldEnoughYay
+

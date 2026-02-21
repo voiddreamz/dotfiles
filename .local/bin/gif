@@ -1,0 +1,17 @@
+#!/usr/bin/sh
+# @author nate zhou
+# @since 2025
+# record selected geometry as a gif
+# @depends slurp wf-recorder
+
+CAPTURE_HOME="${HOME}/tmp/capture-gif"
+[ -d "$CAPTURE_HOME" ] || mkdir -p $CAPTURE_HOME
+
+selected_geo="$(slurp)"
+
+[ -z "$selected_geo" ] && exit 1
+
+wf-recorder -g "$selected_geo" \
+            -c gif \
+            -f "${CAPTURE_HOME}/$(date +%Y-%m-%d_%H_%M_%S).gif"
+

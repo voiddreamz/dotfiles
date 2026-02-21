@@ -1,0 +1,42 @@
+#!/usr/bin/sh
+# @author nate zhou
+# @since 2025
+# use this script to mimic maximizing a window in sway
+# a placeholder window will be spawned and be swapped with the focuse window
+# @depends `./swaymaxd`, `../../.config/sway/config`,
+# `../../.config/i3blocks/config`, jq, foot
+
+output_count="$(swaymsg -t get_outputs -p | grep -c 'Output')"
+focused_output="$(swaymsg -t get_workspaces | jq -r '.[] | select(.focused == true) | .output')"
+focused_workspace="$(swaymsg -t get_workspaces | jq -r '.[] | select(.focused == true) | .name')"
+
+[ -d /tmp/$USER ] || mkdir -p /tmp/$USER
+
+max1() { # DP-1
+    if [ "$focused_workspace" != '-' ]; then # not in placeholder WS
+        echo "$focused_workspace" > /tmp/$USER/swaymax1 # save old WS name
+        # swap placeholder, focus placeholder WS
+        swaymsg swap container with mark "_placeholder_window1", workspace '-'
+    else
+        # swap placeholder, focuse cached old WS
+        swaymsg swap container with mark "_placeholder_window1", workspace "$(cat /tmp/$USER/swaymax1)"
+    fi
+}
+
+max2() { # eDP-1
+    if [ "$focused_workspace" != '=' ]; then
+        echo "$focused_workspace" > /tmp/$USER/swaymax2
+        swaymsg swap container with mark "_placeholder_window2", workspace '='
+    else
+        swaymsg swap container with mark "_placeholder_window2", workspace "$(cat /tmp/$USER/swaymax2)"
+    fi
+}
+
+if [ "$output_count" != 1 ]; then
+    case "$focused_output" in
+        DP-1) max1 ;;
+        eDP-1) max2 ;;
+    esac
+else # single monitor
+    max2
+fi

@@ -1,0 +1,83 @@
+#!/usr/bin/sh
+# @author nate zhou
+# @since 2023,2025
+# Print or adjust laptop's fan speed mode.
+set +x
+
+# Supported laptop models
+MODELS="Thinkpad, ASUS"
+
+POLICY_IBM="/proc/acpi/ibm/fan"
+POLICY_ASUS="/sys/devices/platform/asus-nb-wmi/throttle_thermal_policy"
+
+[ -f "$POLICY_IBM" ] && policy="$POLICY_IBM"
+[ -f "$POLICY_ASUS" ] && policy="$POLICY_ASUS"
+[ -z "$policy" ] && echo "This laptop is not supported." \
+    | tee /dev/tty \
+    | xargs -I {} notify-send -r 2 -u low "$(basename $0)" {} \
+    && exit 0
+
+print_help() {
+    cat <<_EOF_
+SYNOPSIS
+        $(basename $0) [OPTION]
+OPTIONS
+        -g,     get current fan speed mode
+        -h,     print this manual
+        -l,     list supported laptop models
+        [0-9*], set current fan speed level/mode
+_EOF_
+}
+
+notify_mode() {
+    tee /dev/tty | xargs -I {} notify-send -r 2 -u low "fanmode" {}
+}
+
+get_mode() {
+    if [ -f "$POLICY_IBM" ]; then
+        local value="$(grep '^level:' "$policy" | grep -o -e '[0-9]*' -e 'auto')"
+        echo "${value}([0-7])" | notify_mode
+    elif [ -f "$POLICY_ASUS" ]; then
+        local value="$(grep -om1 '[0-9]' $policy)"
+        local mode=""
+        case "$value" in
+            0) mode="auto" ;;
+            1) mode="fast" ;;
+            2) mode="slow" ;;
+        esac
+        echo "${value}(${mode})" | notify_mode
+    fi
+}
+
+set_mode() {
+    if [ -f "$POLICY_IBM" ]; then
+        [ "$1" -gt 7 ] && echo "Invalid value([0-7])" && exit 1
+        echo "level $1" | sudo tee $policy >/dev/null && get_mode
+    elif [ -f "$POLICY_ASUS" ]; then
+        [ "$1" -gt 2 ] && echo "Invalid value([0-2])" && exit 1
+        echo "$1" | sudo tee $policy >/dev/null && get_mode
+    fi
+}
+
+
+if [ $# -eq 0 ]; then
+    get_mode
+else
+    case $1 in
+        -g)
+            get_mode
+            ;;
+        [0-9]*)
+            set_mode "$1"
+            ;;
+        -l)
+            echo "Supported laptop models: ${MODELS}"
+            ;;
+        -h)
+            print_help
+            ;;
+        *)
+            echo "Invalid argument." && exit 1
+            ;;
+    esac
+fi

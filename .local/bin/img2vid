@@ -1,0 +1,39 @@
+#!/usr/bin/sh
+# @author nate zhou
+# @since 2025
+# Use `ffmpeg` to render images with continuous sequence suffix filename
+# into one single streamable video, which is useful to view gpg encrypted
+# image galleries without writing to disk.
+#
+# Example:
+# `gpg -d output.mp4.gpg | mpv -`
+#
+# Images frame will be scaled by ffmpeg if they have multiple size,
+# `./imgresize` can fix this issue.
+
+
+output="output-$(date '+%Y-%m-%d_%H_%M_%S').mp4"
+
+if [ "$#" -eq 0 ]; then
+    cat <<_EOF_
+Usage: $(basename $0) input_pattern [output_format]
+
+input_pattern: input-%03d.jpg"  (default)
+        images should be bulk renamed in the continuous sequence of
+        "input-000.jpg", as ffmpeg will break when number jumps.
+
+output_format: outup.mp4        (default)
+        can be renamed to any filename and formats supported by ffmpeg.
+
+Example:
+        There are pic-0[1-9].png in CWD, run:
+        img2vid pic-%02d.png
+        To specific the output format as gif:
+        img2vid pic-%02d.png output.gif
+_EOF_
+    exit 1
+fi
+
+[ "$#" -eq 2 ] && output="$2"
+
+ffmpeg -i "$1" -b:v 100M -preset slow -movflags faststart "$output"
