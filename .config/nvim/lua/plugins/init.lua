@@ -46,8 +46,13 @@ Plug('windwp/nvim-autopairs')
 Plug('tpope/vim-fugitive')       -- Git 命令包装 (:G)
 Plug('lewis6991/gitsigns.nvim')  -- 左侧显示增删改竖线
 
--- [Jupyter 支持]
-Plug('goerz/jupytext.vim')       -- 自动把 ipynb 转成 py 编辑
+
+
+
+-- [状态栏] 美观且高性能
+Plug('nvim-lualine/lualine.nvim')
+-- [图标支持] 状态栏需要图标 (如果你装了 Nerd Fonts)
+Plug('nvim-tree/nvim-web-devicons')
 
 vim.call('plug#end')
 

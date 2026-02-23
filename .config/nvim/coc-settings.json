@@ -1,3 +1,19 @@
 {
-    "java.jdt.ls.java.home": "/usr/lib/jvm/java-21-openjdk"
+  "languageserver": {
+    "typst": {
+      "command": "tinymist",
+      "args": ["lsp"],
+      "filetypes": ["typst"],
+      "rootPatterns": ["typst.toml", ".git"],
+      "settings": {
+        "exportPdf": "onType", // 或 "onSave" / "never"
+        "outputPath": "$root/$dir/$name", // PDF 输出路径
+        "formatterMode": "typstyle" // 推荐使用 typstyle 格式化
+      }
+    }
+  },
+
+  // 顺便把其他语言的配置也理顺（如果你还没配的话）
+  "clangd.path": "clangd",
+  "python.formatting.provider": "black"
 }
