@@ -7,9 +7,9 @@
     && [ -z "$DVTM" ] && [ -z "$TERM_PROGRAM" ] \
     && alias vim="nvim" vimdiff="nvim -d"
 alias sysup="sudo pacman -Syu"
-alias pacin="sudo pacman -S"
-alias pacse="pacman -Ss"
-alias yase="yay -Ss"
+alias pcin="sudo pacman -S"
+alias pse="pacman -Ss"
+alias yse="yay -Ss"
 alias yain="yay -S"
 alias usrup="yay -Syu"
 alias cmd="command"

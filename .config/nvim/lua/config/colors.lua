@@ -122,6 +122,7 @@ hi('DiagnosticSignOk',           { link = 'DiagnosticOk' })
 hi('DiagnosticDeprecated',       { sp = 'Red', strikethrough = true,    cterm = { strikethrough = true } })
 
 hi('DiagnosticUnnecessary', { link = 'Comment' })
+hi('CocUnusedHighlight',    { fg = '#666666', bg = 'NONE' })
 hi('LspInlayHint',          { link = 'NonText' })
 hi('SnippetTabstop',        { link = 'Visual' })
 
@@ -200,6 +201,17 @@ hi('@lsp.type.struct',        { link = 'Structure' })
 hi('@lsp.type.type',          { link = 'Type' })
 hi('@lsp.type.typeParameter', { link = 'TypeDef' })
 hi('@lsp.type.variable',      { link = 'Identifier' })
+  -- CPP 
+  hi('@constant.macro',         { link = 'PreProc' }) 
+  -- 让 命名空间(Namespace) 显示为青色 (Directory)，而不是普通类型颜色
+  hi('@module.cpp',             { link = 'Directory' })
+  -- 让 类名(Class) 加粗并高亮
+  hi('@type.cpp',               { link = 'Type', bold = true })
+  -- 让 成员变量(Member) 稍微暗一点，区分局部变量
+  hi('@variable.member',        { fg = '#ff80bf' }) 
+  -- 让 函数调用(Function call) 显眼一点
+  hi('@function.call',          { fg = '#ffcc66' })
+
 
   hi('ColorColumn',  { bg = '#111111',                            ctermbg = 'DarkRed' })
   hi('CursorColumn', { bg = '#2c2e33',                            ctermbg = 'DarkGrey' })

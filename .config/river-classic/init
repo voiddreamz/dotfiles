@@ -79,3 +79,5 @@ else
     riverctl default-layout rivertile
     rivertile -view-padding 5 -outer-padding 5 -main-ratio 0.50 &
 fi
+$spwan "/usr/lib/xdg-desktop-portal-termfilechooser -r &" &
+

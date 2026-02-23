@@ -40,3 +40,11 @@ vim.o.smartindent = true -- indentation is aware of newline insert
 
 vim.o.splitbelow = true
 vim.o.splitright = true
+-- 让 gf (Go to File) 更智能
+-- path: 告诉 vim 去哪些目录找文件
+-- .,, : 当前文件所在目录
+-- /usr/include : C/C++ 系统头文件
+-- ** : 递归查找 (慎用，大项目会慢)
+
+-- suffixesadd: 允许跳转时省略扩展名 (比如 import './utils')
+vim.opt.suffixesadd:append({'.c', '.cpp', '.h', '.hpp', '.lua', '.js', '.ts', '.py'})

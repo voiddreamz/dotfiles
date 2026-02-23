@@ -7,13 +7,10 @@ spawn="riverctl spawn"
 
 # always
 # Xwayland-Satellite
-$spawn "export DISPLAY=:0" &
-#$spawn ""
 $spawn "${HOME}/.local/bin/dam-run" &
 $spwan "/usr/lib/hyprpolkitagent/hyprpolkitagent" &
-$spwan "wlr-randr --output eDP-1 --mode 2160x1440@60.000999Hz --scale 1.5" &
+#$spwan "wlr-randr --output eDP-1 --mode 2160x1440@60.000999Hz --scale 1.5" &
 $spawn "kanshi" &
-$spwan "/usr/lib/xdg-desktop-portal-termfilechooser -r &" &
 # restart
 killall -q swaybg fcitx5 mpc &
 

@@ -5,12 +5,12 @@
 
 c.zoom.default = 120
 
-config.source('proxy.py')
+#config.source('proxy.py')
 config.source('colors.py')
 config.source('bindings.py')
 config.source('search.py')
 
-c.content.user_stylesheets = ["~/.config/qutebrowser/styles/black.css"]
+# c.content.user_stylesheets = ["~/.config/qutebrowser/styles/black.css"]
 
 config.load_autoconfig(False) # ignore GUI settings
 
@@ -38,7 +38,7 @@ c.auto_save.session = True
 
 c.zoom.levels = ["25%", "33%", "50%", "67%", "75%", "90%", "100%", "110%", "120%", "130%", "140%", "150%", "175%", "200%", "250%", "300%"]
 
-c.fonts.default_family = 'Noto Sans' # UI
+c.fonts.default_family = 'HonorSansCN' # UI
 c.fonts.default_size = '14pt'
 c.fonts.web.size.default = 18 # webpage
 c.fonts.web.size.default_fixed = 18
@@ -80,9 +80,11 @@ c.content.blocking.adblock.lists = [
   "https://secure.fanboy.co.nz/fanboy-cookiemonster.txt",
   "https://easylist.to/easylist/easyprivacy.txt",
   "https://secure.fanboy.co.nz/fanboy-annoyance.txt",]
+config.set('content.blocking.enabled', False, 'http://localhost/*')
+config.set('content.blocking.enabled', False, 'http://127.0.0.1/*')
 
 # privacy
-c.content.canvas_reading = False # breaks some sites, see `zcr` in `bindings.py`
-c.content.geolocation = False
+c.content.canvas_reading = True # breaks some sites, see `zcr` in `bindings.py`
+c.content.geolocation = True
 c.content.webrtc_ip_handling_policy = "default-public-interface-only"
 c.completion.open_categories = ['filesystem']

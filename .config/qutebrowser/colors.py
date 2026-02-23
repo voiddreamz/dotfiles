@@ -4,7 +4,7 @@
 # source this file in config.py:
 # config.source('colors.py')
 
-c.colors.webpage.darkmode.enabled = True
+c.colors.webpage.darkmode.enabled = False
 c.colors.webpage.darkmode.policy.images = 'never'
 c.colors.webpage.bg = '#191919' # fix darkmode white flash
 

@@ -8,6 +8,10 @@ vim.g.mapleader = ' '
 local function map(mode, keys, value)
 	vim.keymap.set(mode, keys, value, { noremap = true })
 end
+-- 自定义设置
+-- TypstPreview
+map('n', '<leader>mp', ':MarkdownPreviewToggle<CR>')
+map('n', '<leader>tp', ':TypstPreview<CR>')
 
 -- escape terminal mode with vi mode shell
 map('t', '<leader><ESC>', '<C-\\><C-n>')
@@ -93,3 +97,29 @@ map('n', '<leader>gdv', ':Gvdiffsplit<CR>')
 map('n', '<leader>gl', ':Git log --graph --pretty=format:\'%Cred%h%Creset%C(yellow)%d%Creset %s%Cgreen(%cr)\'<CR><CR>')
 -- lf
 map('n', '<leader>o', ':LfNewTab<CR>')
+-- ==========================================
+-- 多光标 (Visual Multi)
+-- ==========================================
+-- 默认键位：
+-- <C-n> : 选中单词，相当于 VS Code 的 Ctrl+D
+-- <C-Down> / <C-Up> : 垂直添加光标
+-- q : 跳过当前选中 (Skip)
+-- n / N : 下一个 / 上一个
+
+-- ==========================================
+-- 全项目替换 (Spectre)
+-- ==========================================
+-- 打开替换面板
+map('n', '<leader>S', '<cmd>lua require("spectre").toggle()<CR>')
+
+-- 搜索当前光标下的单词
+map('n', '<leader>sw', '<cmd>lua require("spectre").open_visual({select_word=true})<CR>')
+
+-- 在当前文件内搜索并准备替换
+map('n', '<leader>sp', '<cmd>lua require("spectre").open_file_search({select_word=true})<CR>')
+-- 格式化代码 (Format)
+-- 这会调用 CoC 的格式化功能 (比如 clang-format, prettier, black 等)
+map('n', '<leader>cf', ':call CocAction("format")<CR>')
+
+-- 如果你习惯选一部分代码格式化 (Visual Mode)
+map('v', '<leader>cf', ':call CocAction("format")<CR>')
