@@ -1,0 +1,14 @@
+# vim:ft=mailcap
+# mutt/mailcap
+# @author nate zhou
+# @since 2025
+# rifle for mutt
+
+text/html; w3m -I %{charset} -T text/html; copiousoutput;
+
+image/*; SWAYSOCK=/dev/null swayimg %s;
+video/*; mpv --loop %s;
+audio/*; mpv --loop --audio-display=no %s;
+
+application/pdf; zathura %s;
+application/epub+zip; zathura %s;

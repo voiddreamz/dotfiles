@@ -8,6 +8,7 @@
 . $HOME/.config/river-classic/bindings
 . $HOME/.config/river-classic/modes
 . $HOME/.config/river-classic/rules
+
 # remap key
 #riverctl keyboard-layout-file "$HOME/.config/layout.xkb"
 riverctl keyboard-layout -options caps:swapescape,altwin:swap_alt_win us
@@ -22,7 +23,6 @@ riverctl hide-cursor when-typing enabled
 
 for i in $(riverctl list-inputs | grep -i touchpad); do
     riverctl input "$i" tap enabled
- #   riverctl input "$i" natural-scroll enabled
 done
 
 # border
@@ -30,6 +30,7 @@ riverctl border-color-focused 0x427b58ff
 riverctl border-color-unfocused 0x000000ff
 riverctl border-color-urgent 0xeeeeeeff
 riverctl border-width 2
+
 # tags
 for i in $(seq 1 9)
 do
@@ -79,5 +80,3 @@ else
     riverctl default-layout rivertile
     rivertile -view-padding 5 -outer-padding 5 -main-ratio 0.50 &
 fi
-$spwan "/usr/lib/xdg-desktop-portal-termfilechooser -r &" &
-

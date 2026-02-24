@@ -305,9 +305,9 @@ update_newsboat() {
     local current_time=$(date +%s)
     local UPDATE_FREQUENCY=16200 # 4.5H
     local count="$(cat $NEWS_CACHE)"
-    local icon="󰍡"
+    local icon="󰍡 "
     [ "$count" -gt 0 ] && icon="󱥁 "
-    [ $((current_time - update_time)) -gt "$UPDATE_FREQUENCY" ] && icon="󱙍"
+    [ $((current_time - update_time)) -gt "$UPDATE_FREQUENCY" ] && icon="󱙍 "
     newsboat="${icon}${count}"
 }
 

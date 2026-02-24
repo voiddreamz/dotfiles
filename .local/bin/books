@@ -14,7 +14,7 @@ fi
 
 selected_file="$(\
     find "$SEARCH_PATH" -type f \
-    | grep -e .epub$ -e .pdf$  \
+    | grep -e .epub$ -e .pdf$ -e .mobi$  \
     | $menu -p "$(basename $0)" -i -l 6\
     )"
 

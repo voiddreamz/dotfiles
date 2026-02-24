@@ -50,6 +50,7 @@ config.bind(',', 'config-cycle tabs.width 20% 10%')
 config.bind('b', 'config-cycle statusbar.show always never')
 
 config.bind('m', 'tab-mute')
+config.bind('M', 'spawn mpv {url}')
 
 config.bind(';s', 'hint images download')
 
