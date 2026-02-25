@@ -78,3 +78,4 @@ export _JAVA_AWT_WM_NONREPARENTING=1 # fix java blank window in xwayland-satelli
 #export GTK_IM_MODULE=ibus
 #export XMODIFIERS=@im=ibus
 #export QT_IM_MODULE=ibus
+export OLLAMA_MODELS="$HOME/.ollama"

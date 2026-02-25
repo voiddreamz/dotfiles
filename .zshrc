@@ -57,6 +57,8 @@ bindkey -s '^h' 'heart\n'
 bindkey -s '^o' 'lfcd\n'  # .config/shell/functions.sh
 bindkey -s '^v' 'abduco -A dvtm dvtm-status\n'
 
+bindkey -s '^g' 'goose\n'
+bindkey -s '^h' 'heart\n'
 # line editor v in normal mode
 autoload edit-command-line
 zle -N edit-command-line

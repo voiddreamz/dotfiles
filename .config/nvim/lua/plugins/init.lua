@@ -28,6 +28,7 @@ Plug('tpope/vim-fugitive')
 Plug('voldikss/vim-floaterm')
 Plug('ptzz/lf.vim')
 
+Plug('h-hg/fcitx.nvim')
 -- Self Plug:
 -- Markdown Preview
 Plug('iamcco/markdown-preview.nvim', { ['do'] = 'cd app && pnpm install', ['for'] = {'markdown', 'vim-plug'} })

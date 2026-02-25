@@ -1,0 +1,16 @@
+\.git
+\.gitignore
+\.gitmodules
+
+^/README.*
+^/LICENSE.*
+
+boot
+etc
+usr
+install.md
+package-list
+misc
+unixchad.asc
+install-root.sh
+install-user.sh

@@ -47,7 +47,7 @@ $map "$wmenu" None h spawn "riverctl enter-mode normal && ${HOME}/.local/bin/hea
 $map "$wmenu" None b spawn "riverctl enter-mode normal && ${HOME}/.local/bin/blue"
 $map "$wmenu" None m spawn "riverctl enter-mode normal && ${HOME}/.local/bin/saddle --mount"
 $map "$wmenu" None u spawn "riverctl enter-mode normal && ${HOME}/.local/bin/saddle --unmount"
-$map "$wmenu" None p spawn "riverctl enter-mode normal && ${HOME}/.local/bin/saddle --power-off"
+$map "$wmenu" None p spawn "riverctl enter-mode normal && ${HOME}/.local/bin/picker"
 $map "$wmenu" None s spawn "riverctl enter-mode normal && ${HOME}/.local/bin/speaker"
 $map "$wmenu" None e spawn "riverctl enter-mode normal && ${HOME}/.local/bin/emoji"
 
@@ -64,7 +64,7 @@ $map "$dunst" None Escape enter-mode normal
 $map "$dunst" None l spawn "riverctl enter-mode normal && ${HOME}/.local/bin/lsupdates"
 $map "$dunst" None w spawn "riverctl enter-mode normal && ${HOME}/.local/bin/wttr"
 $map "$dunst" None c spawn "riverctl enter-mode normal && ${HOME}/.local/bin/dcal"
-$map "$dunst" None m spawn "riverctl enter-mode normal && ${HOME}/.local/bin/lsmus"
+# $map "$dunst" None m spawn "riverctl enter-mode normal && ${HOME}/.local/bin/lsmus"
 $map "$dunst" None i spawn "riverctl enter-mode normal && ${HOME}/.local/bin/clip --wipe"
 
 

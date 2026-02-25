@@ -56,7 +56,7 @@ map('n', '<C-w>i', ':resize -2<CR>')
 map('n', '<C-w>o', ':vertical resize +2<CR>')
 
 -- tab
-map('n', '<leader>O', ':tabnew<CR>')
+map('n', '<leader>o', ':tabnew<CR>')
 map('n', '<leader>j', ':tabnext<CR>')
 map('n', '<leader>k', ':tabprev<CR>')
 
@@ -96,7 +96,7 @@ map('n', '<leader>gds', ':Gdiffsplit<CR>')
 map('n', '<leader>gdv', ':Gvdiffsplit<CR>')
 map('n', '<leader>gl', ':Git log --graph --pretty=format:\'%Cred%h%Creset%C(yellow)%d%Creset %s%Cgreen(%cr)\'<CR><CR>')
 -- lf
-map('n', '<leader>o', ':LfNewTab<CR>')
+-- map('n', '<leader>o', ':LfNewTab<CR>')
 -- ==========================================
 -- 多光标 (Visual Multi)
 -- ==========================================

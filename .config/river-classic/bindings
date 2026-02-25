@@ -41,8 +41,8 @@ $map -repeat $mode ${mod}+Control+Shift bracketright spawn "${HOME}/.local/bin/b
 done
 
 $map normal ${mod}+Shift q                  spawn "${HOME}/.local/bin/exiland -river-classic"
-$map normal Mod1 l                          spawn "swaylock"
-$map normal ${mod}+Shift e                  spawn "${HOME}/.local/bin/hibe"
+$map normal ${mod}+Shift e                          spawn "swaylock"
+# $map normal ${mod}+Shift e                  spawn "${HOME}/.local/bin/hibe"
 $map normal ${mod}+Shift m                  spawn "${HOME}/.local/bin/mag"
 
 $map normal Control space                   spawn "fcitx5-remote -t"

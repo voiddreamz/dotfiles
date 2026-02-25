@@ -2,3 +2,15 @@ https://codeberg.org/unixchad.rss "unixchad" "codeberg"
 http://www.ximalaya.com/album/64689453.xml "a"
 https://feed.xyzfm.space/wmnkvmrpwuww "罗永浩"
 rsshub.liumingye.cn/xiaoyuzhou/podcast/61dcea054b459868c4d04153 "共鸣音乐"
+
+# [distros]
+https://archlinux.org/feeds/news/ "~Arch Linux" archlinux distro
+https://www.archlinuxcn.org/feed/ "~Arch Linux CN" archlinux distro
+https://micronews.debian.org/feeds/feed.rss "~Debian Micronews" distro
+
+# [blog]
+https://lukesmith.xyz/rss.xml "~Luke Smith" blog
+
+# [news]
+http://www.fsf.org/news/aggregator/RSS "~FSF News" news
+
