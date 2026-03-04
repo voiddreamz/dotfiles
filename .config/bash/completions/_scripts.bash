@@ -179,22 +179,34 @@ _muttauth() {
 complete -F _muttauth muttauth
 
 _reload() {
-    local options used remaining
-    options=(--cronjobs --damblocks-fifo --damblocks-xsetroot --help)
-    [ $COMP_CWORD -ge 2 ] && used=("${COMP_WORDS[@]:1:COMP_CWORD-1}") || used=()
+    local options modules used remaining
+    options=("--cronjobs" "--damblocks-fifo" "--damblocks-xsetroot" \
+             "--module" "--help")
+    modules=($(lsmod | cut -d' ' -f1))
+    used=("${COMP_WORDS[@]:1:COMP_CWORD-1}")
+    remaining=()
     for opt in "${options[@]}"; do
         if [[ ! " ${used[@]} " =~ " $opt " ]]; then
             remaining+=("$opt")
         fi
     done
-    COMPREPLY=($(compgen -W "${remaining[*]}" -- "${COMP_WORDS[COMP_CWORD]}"))
+    if [ $COMP_CWORD -eq 1 ]; then
+        COMPREPLY=($(compgen -W "${remaining[*]}" -- "${COMP_WORDS[COMP_CWORD]}"))
+    else
+        for ((i=1; i<COMP_CWORD; i++)); do
+            if [ "${COMP_WORDS[i]}" == "--module" ]; then
+                COMPREPLY=($(compgen -W "${modules[*]}" -- "${COMP_WORDS[COMP_CWORD]}"))
+                return 0
+            fi
+        done
+    fi
 }
 complete -F _reload reload
 
 _wttr() {
     local options
     local current_word="${COMP_WORDS[COMP_CWORD]}"
-    options="-u --update -c --cron -e --edit -h --help"
+    options="-u --update -c --cron -e --edit -g --geo -h --help"
     if [ "$COMP_CWORD" -eq 1 ]; then
         COMPREPLY=($(compgen -W "${options}" -- ${current_word}))
     fi

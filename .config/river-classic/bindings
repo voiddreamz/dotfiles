@@ -17,7 +17,7 @@ $map normal $mod Return                     spawn "$term"
 $map normal $mod v                          spawn "$term -T \"Floating_Term\" -o colors.alpha=0.9 abduco -A dvtm dvtm-status"
 $map normal $mod e                          spawn "$term sh -c 'sleep 0.03 && lf'"
 #$map normal ${mod}+Shift e                  spawn "nautilus"
-$map normal $mod q                          spawn "zen-browser"
+$map normal $mod q                          spawn "qutebrowser"
 
 for mode in "normal" "locked"; do
 $map -repeat $mode $mod minus                        spawn "${HOME}/.local/bin/audio sink --minus10"
@@ -51,9 +51,9 @@ $map normal $mod n                          spawn "dunstctl history-pop"
 $map normal ${mod}+Shift n                  spawn "dunstctl close"
 $map normal ${mod}+Control+Shift n          spawn "dunstctl close-all"
 
-$map normal $mod g                          spawn "${HOME}/.local/bin/shoot"
-$map normal ${mod}+Shift g                  spawn "${HOME}/.local/bin/shoot --geo"
-$map normal ${mod}+Control g                spawn "${HOME}/.local/bin/shoot --all"
+$map normal $mod y                          spawn "${HOME}/.local/bin/shoot"
+$map normal ${mod}+Shift y                  spawn "${HOME}/.local/bin/shoot --geo"
+$map normal ${mod}+Control y                spawn "${HOME}/.local/bin/shoot --all"
 
 $map normal $mod c                          spawn "${HOME}/.local/bin/clip"
 $map normal ${mod}+Control c                spawn "${HOME}/.local/bin/clip --wipe"
@@ -97,7 +97,7 @@ $map normal $mod u                          send-layout-cmd "$tiler" "main-locat
 $map normal ${mod}+Shift u                  send-layout-cmd "$tiler" "main-location top"
 $map normal $mod m                          send-layout-cmd "$tiler" "main-location monocle"
 $map normal $mod o                          send-layout-cmd "$tiler" "main-location deck"
-#$map normal $mod g                          send-layout-cmd "$tiler" "main-location grid"
+$map normal $mod g                          send-layout-cmd "$tiler" "main-location grid"
 
 $map normal $mod Space                      toggle-float
 $map normal $mod f                          toggle-fullscreen

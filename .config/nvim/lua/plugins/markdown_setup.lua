@@ -8,7 +8,7 @@
 ----------------------------------------------------------------------
 
 -- 设置为 0，只有按快捷键才开启预览
-vim.g.mkdp_auto_start = 1
+vim.g.mkdp_auto_start = 0
 vim.g.mkdp_auto_close = 1
 vim.g.mkdp_refresh_slow = 0
 

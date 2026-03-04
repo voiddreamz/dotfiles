@@ -32,6 +32,7 @@ _phone() {
     fi
 }
 compdef _phone phone
+
 _address() {
     local options
     options=("-e" "--edit")
@@ -151,11 +152,23 @@ _muttauth() {
 compdef _muttauth muttauth
 
 _reload() {
-    local options
-    options=("--cronjobs" "--damblocks-fifo" "--damblocks-xsetroot" "--help")
+    local options modules
+    options=("--cronjobs" "--damblocks-fifo" "--damblocks-xsetroot" \
+             "--module" "--help")
+    modules=($(lsmod | cut -d' ' -f1))
     used=(${words[2,-1]})
     remaining=(${options:|used})
-    _describe 'options' remaining
+    if [ "$CURRENT" -eq 2 ]; then
+        _describe 'options' remaining
+    else
+        local i
+        for ((i=2; i<CURRENT; i++)); do
+            if [ "${words[i]}" == "--module" ]; then
+                _describe 'options' modules
+                return 0
+            fi
+        done
+    fi
 }
 compdef _reload reload
 
@@ -208,3 +221,12 @@ _sharepkg() {
     _describe 'options' remaining
 }
 compdef _sharepkg sharepkg
+
+_ala() {
+    local options
+    options=("-d" "--delete" "-h" "--help")
+    if [ "$CURRENT" -eq 2 ]; then
+        _describe 'options' options
+    fi
+}
+compdef _ala ala

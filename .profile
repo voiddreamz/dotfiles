@@ -8,9 +8,6 @@
 
 [[ -n "$BASH_VERSION" && -f "$HOME/.bashrc" ]] && . "$HOME/.bashrc"
 
-# Added by Toolbox App
-export PATH="$PATH:/home/voiddreamz/.local/share/JetBrains/Toolbox/scripts"
-
 [ -d "$XDG_STATE_HOME"/bash ] || mkdir -p $XDG_STATE_HOME/bash
 export HISTFILE="$XDG_STATE_HOME/bash/history"
 

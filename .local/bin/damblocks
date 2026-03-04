@@ -347,7 +347,7 @@ update_wttr() {
 }
 
 # modules that don't update on their own need to be run at the start for getting their initial value
-update_volume; update_microphone; update_brightness;  update_calcurse; update_newsboat;
+update_volume; update_microphone; update_brightness; update_newsboat;
 
 display () {
     local space=" "
@@ -355,7 +355,7 @@ display () {
     local delimiter_end="]"
     local separator="]["
 #    printf "%s" "${delimiter_home}${mpd}${separator}${wttr}${separator}${calcurse}${space}${newsboat}${space}${mutt}${separator}${pacman}${space}${ttylogin}${space}${uptime}${separator}${root}${space}${home}${separator}${memory}${space}${cpu}${space}${temperature}${space}${fanmode}${separator}${wifi}${space}${ethernet}${separator}${brightness}${space}${microphone}${space}${volume}${separator}${battery}${space}${bluetooth}${separator}${time}${delimiter_end}"
-    printf "%s" "${delimiter_home}${uptime}${separator}${newsboat}${separator}${memory}${space}${cpu}${space}${temperature}${space}${separator}${wifi}${separator}${brightness}${space}${microphone}${space}${volume}${separator}${battery}${space}${bluetooth}${separator}${time}${delimiter_end}"
+    printf "%s" "${delimiter_home}${newsboat}${separator}${memory}${space}${cpu}${space}${temperature}${separator}${wifi}${separator}${brightness}${space}${microphone}${space}${volume}${separator}${battery}${space}${bluetooth}${separator}${time}${delimiter_end}"
 
 case "$mode" in
     fifo)

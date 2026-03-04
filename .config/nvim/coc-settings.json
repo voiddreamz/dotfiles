@@ -15,5 +15,6 @@
 
   // 顺便把其他语言的配置也理顺（如果你还没配的话）
   "clangd.path": "clangd",
-  "python.formatting.provider": "black"
+  "python.formatting.provider": "black",
+  "zig.zls.path": "/home/voiddreamz/.config/coc/extensions/coc-zls-data/zls_install/zls"
 }
