@@ -40,6 +40,14 @@ vim.o.smartindent = true -- indentation is aware of newline insert
 
 vim.o.splitbelow = true
 vim.o.splitright = true
+
+-- persistent undo history, survives file close and reopen
+vim.o.undofile = true
+
+-- backup before overwriting a file
+vim.o.backup = true
+vim.o.backupdir = vim.fn.stdpath('state') .. '/backup//'
+vim.fn.mkdir(vim.fn.stdpath('state') .. '/backup', 'p')
 -- 让 gf (Go to File) 更智能
 -- path: 告诉 vim 去哪些目录找文件
 -- .,, : 当前文件所在目录

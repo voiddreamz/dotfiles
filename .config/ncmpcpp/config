@@ -8,12 +8,12 @@ song_window_title_format = ncmpcpp
 
 ncmpcpp_directory = ~/.config/ncmpcpp
 lyrics_directory = ~/mus/.lyrics
-mpd_host = localhost
+mpd_host = "/run/user/1000/mpd/socket"
 mpd_port = 6600
 mpd_connection_timeout = 5
-mpd_music_dir = ~/mus
+mpd_music_dir = ~/data/mus
 mpd_crossfade_time = 5
-startup_screen = playlist
+# startup_screen = playlist
 startup_slave_screen = ""
 startup_slave_screen_focus = yes
 locked_screen_width_part = 60

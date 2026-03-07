@@ -5,7 +5,7 @@ ignore-empty-password
 show-failed-attempts
 daemonize
 
-image="$HOME/.local/share/lockscreen"
+image="$HOME/pic/wallpaper/021.jpg"
 scaling=fill
 # indicator-caps-lock
 

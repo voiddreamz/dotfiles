@@ -3,6 +3,9 @@
 # @since 2025
 # update damblocks's mpd module whenever mpd playing status changes
 
+mkdir -p ${XDG_RUNTIME_DIR}/mpd
+pgrep -x mpd >/dev/null || mpd
+
 while : ; do
     mpc idle >/dev/null \
         && kill -45 "$(cat ${XDG_RUNTIME_DIR}/damblocks.pid)" \

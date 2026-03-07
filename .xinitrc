@@ -14,7 +14,7 @@ autostart() {
 
     #${HOME}/.local/bin/mbs-cron &
 
-    xss-lock -- i3lock -i ${HOME}/.local/share/lockscreen -f  &
+xss-lock -- i3lock -i ${HOME}/pic/wallpaper/021.jpg -f  &
 
     #redshift -P -O 5000 &
 
@@ -29,12 +29,12 @@ autostart() {
 }
 
 config_x() {
-    [ -f "${HOME}/.Xresources" ] && xrdb -m "${HOME}/.Xresources" &
+    echo "Xft.dpi: 96" | xrdb -m
 
     xset r rate 200 30 &
-    
+
     setxkbmap -option caps:swapescape,altwin:swap_alt_win &
-    
+
     unclutter --timeout 3 &
 
     xbanish &
@@ -58,6 +58,7 @@ config_x; autostart;
 
 case "$wm" in
     dwm)
+        damblocks-mpdd &
         damblocks --xsetroot &
         exec ssh-agent dwm
         ;;
