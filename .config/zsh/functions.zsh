@@ -1,5 +1,4 @@
 # .config/zsh/functions.zsh
-# @author nate zhou
 # @since 2025,2026
 # zsh specific functions
 

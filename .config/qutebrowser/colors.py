@@ -4,9 +4,14 @@
 # source this file in config.py:
 # config.source('colors.py')
 
+# c.colors.webpage.bg = '#191919' # fix darkmode white flash
+
+# Improve native darkmode quality (if enabled)
 c.colors.webpage.darkmode.enabled = False
 c.colors.webpage.darkmode.policy.images = 'never'
-c.colors.webpage.bg = '#191919' # fix darkmode white flash
+c.colors.webpage.darkmode.algorithm = 'lightness-cielab' # More natural colors
+c.colors.webpage.darkmode.threshold.foreground = 150
+c.colors.webpage.darkmode.threshold.background = 205
 
 c.colors.statusbar.normal.bg = '#427b58'
 c.colors.statusbar.normal.fg = '#eeeeee'

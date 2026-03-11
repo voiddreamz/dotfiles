@@ -1,6 +1,5 @@
 #!/usr/bin/sh
 # .config/shell/profile.sh
-# @author nate zhou
 # @since 2023,2024,2025,2026
 # set universal ENV, use `/bin/sh`(-> `/bin/dash`) for better efficiency
 

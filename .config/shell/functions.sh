@@ -1,5 +1,4 @@
 # .config/shell/functions.sh
-# @author nate zhou
 # @since 2025,2026
 # general functions for bash/zsh
 

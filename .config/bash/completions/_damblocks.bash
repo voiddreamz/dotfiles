@@ -1,5 +1,4 @@
 # vim:ft=sh
-# @author nate zhou
 # @since 2026
 # bash completion for damblocks
 

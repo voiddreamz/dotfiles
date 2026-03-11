@@ -1,5 +1,4 @@
 # .config/shell/aliases.sh
-# @author nate zhou
 # @since 2023,2024,2025,2026
 # general aliases for bash/zsh
 

@@ -5,7 +5,7 @@
 include bindings.rc
 include colors.rc
 
-set font 'Source Code Pro normal 14'
+set font 'HonorSansCN Nerd normal 14'
 
 set guioptions 'sv'
 

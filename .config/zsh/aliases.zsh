@@ -1,5 +1,4 @@
 # .config/zsh/aliases.zsh
-# @author nate zhou
 # @since 2025
 # zsh specific aliases
 

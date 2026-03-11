@@ -1,5 +1,4 @@
 # bash/functions.sh
-# @author nate zhou
 # @since 2025,2026
 # bash specific functions
 

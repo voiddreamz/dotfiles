@@ -2,5 +2,5 @@ profile {
     # 匹配你的显示器名称，并设置模式和缩放
     # 将 "eDP-1" 替换成你自己的显示器名称
     # 将 "scale 2" 中的 2 替换成你想要的缩放系数 (e.g., 1.5)
-    output "eDP-1" mode 2160x1440 scale 1.5
+    output "eDP-1" mode 2160x1440 scale 1.3
 }

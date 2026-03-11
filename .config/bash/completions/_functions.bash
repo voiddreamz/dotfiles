@@ -1,5 +1,4 @@
 # vim:ft=sh
-# @author nate zhou
 # @since 2025,2026
 # functions in `~/.config/{shell,bash}/functions.zsh`
 

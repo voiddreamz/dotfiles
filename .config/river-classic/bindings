@@ -13,6 +13,7 @@ $map normal ${mod}+Shift r                  spawn "${HOME}/.config/river-classic
 $map normal None Caps_Lock                  spawn "${HOME}/.local/bin/capslock"
 
 $map normal $mod p                          spawn "$menu"
+$map normal $mod+Shift p                    spawn "ls /usr/share/applications/*.desktop | xargs -n 1 basename | sed 's/\.desktop//' | wmenu-color | xargs -I {} dex /usr/share/applications/{}.desktop"
 $map normal $mod Return                     spawn "$term"
 $map normal $mod v                          spawn "$term -T \"Floating_Term\" -o colors.alpha=0.9 abduco -A dvtm dvtm-status"
 $map normal $mod e                          spawn "$term sh -c 'sleep 0.03 && lf'"

@@ -47,7 +47,7 @@ config.bind(
 config.bind('.', 'config-cycle tabs.show always never')
 config.bind(',', 'config-cycle tabs.width 20% 10%')
 
-config.bind('b', 'config-cycle statusbar.show always never')
+config.bind('sb', 'config-cycle statusbar.show always never')
 
 config.bind('m', 'tab-mute')
 config.bind('M', 'spawn mpv {url}')
@@ -75,7 +75,7 @@ config.bind('<Ctrl-k>', 'tab-move -')
 config.bind('tg', 'tab-focus 1')
 config.bind('tG', 'tab-focus -1')
 
-config.bind('I', 'config-cycle colors.webpage.darkmode.enabled false true')
+config.bind('B', 'config-cycle colors.webpage.darkmode.enabled false true')
 
 config.bind('<Shift-u>', 'adblock-update')
 
