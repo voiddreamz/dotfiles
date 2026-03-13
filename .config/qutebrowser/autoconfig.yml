@@ -6,11 +6,5 @@
 
 config_version: 2
 settings:
-  content.javascript.clipboard:
-    https://codeberg.org: access-paste
-    https://github.com: access-paste
-    https://napneko.pages.dev: access-paste
-  tabs.show:
-    global: always
   tabs.width:
     global: 10%
