@@ -6,5 +6,5 @@
 
 config_version: 2
 settings:
-  tabs.width:
-    global: 10%
+  content.javascript.clipboard:
+    https://codeberg.org: access-paste
