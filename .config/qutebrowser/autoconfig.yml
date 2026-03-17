@@ -6,5 +6,5 @@
 
 config_version: 2
 settings:
-  content.javascript.clipboard:
-    https://codeberg.org: access-paste
+  tabs.show:
+    global: never

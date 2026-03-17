@@ -11,6 +11,7 @@ $spawn "${HOME}/.local/bin/dam-run" &
 $spwan "/usr/lib/hyprpolkitagent/hyprpolkitagent" &
 #$spwan "wlr-randr --output eDP-1 --mode 2160x1440@60.000999Hz --scale 1.5" &
 $spawn "kanshi" &
+$spawn "otd-daemon" &
 # restart
 killall -q swaybg fcitx5 mpc &
 
@@ -36,3 +37,4 @@ pgrep 'dunst' || $spawn "dunst" &
 pgrep 'wob' || $spawn "${HOME}/.local/bin/wobd" &
 
 $spawn "fcitx5 -d --verbose '*=0'" & # conflicts with wtype
+$spawn "sudo rmmod wacom"

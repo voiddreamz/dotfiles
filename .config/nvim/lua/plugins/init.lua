@@ -21,7 +21,7 @@ Plug('neoclide/coc.nvim', { ['branch'] = 'release' })
 
 Plug('lukas-reineke/indent-blankline.nvim')
 
-Plug('MeanderingProgrammer/render-markdown.nvim')
+Plug('OXY2DEV/markview.nvim')
 
 Plug('tpope/vim-fugitive')
 
@@ -61,7 +61,7 @@ require('plugins.nvim-colorizer')
 require('plugins.nvim-treesitter')
 require('plugins.nvim-treesitter-context')
 require('plugins.indent-blankline')
-require('plugins.render-markdown')
+require('plugins.markview')
 require('plugins.vim-floaterm')
 require('plugins.lf')
 require('plugins.markdown_setup')

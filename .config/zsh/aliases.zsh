@@ -1,9 +1,10 @@
 # .config/zsh/aliases.zsh
-# @since 2025
+# @author nate zhou
+# @since 2025,2026
 # zsh specific aliases
 
 alias .r=". ~/.zprofile && . ~/.zshrc"
-alias ra="rehash"
+alias rh="rehash"
 
 autoload -Uz run-help # bash like help
 (( ${+aliases[run-help]} )) && unalias run-help

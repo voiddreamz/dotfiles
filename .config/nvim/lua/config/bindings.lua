@@ -87,9 +87,8 @@ map('n', '<leader>tH', ':TSToggle highlight<CR>')
 map('n', '<leader>tx', ':TSContext toggle<CR>')
 -- indent-blankline
 map('n', '<leader>tI', ':IBLToggle<CR>')
--- render-markdown
-map('n', '<leader>tM', ':RenderMarkdown toggle<CR>')
-map('n', '<leader>M', ':RenderMarkdown preview<CR>')
+-- markview
+map('n', '<leader>tM', ':Markview toggle<CR>')
 -- vim-fugitive
 map('n', '<leader>gg', ':G<CR>')
 map('n', '<leader>gds', ':Gdiffsplit<CR>')
