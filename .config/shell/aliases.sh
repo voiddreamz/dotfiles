@@ -5,6 +5,7 @@
 [ ! $UID -eq 0 ] && command -v nvim >/dev/null \
     && [ -z "$DVTM" ] && [ -z "$TERM_PROGRAM" ] \
     && alias vim="nvim" vimdiff="nvim -d"
+alias c2pdf="soffice --headless --convert-to pdf"
 alias sysup="sudo pacman -Syu"
 alias pcin="sudo pacman -S"
 alias pse="pacman -Ss"
