@@ -1,0 +1,5 @@
+# Rime
+.config/fcitx5/rime/build/
+.config/fcitx5/rime/*.userdb/
+.config/fcitx5/rime/*.gram
+.config/fcitx5/rime/user.yaml
