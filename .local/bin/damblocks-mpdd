@@ -3,8 +3,7 @@
 # @since 2025
 # update damblocks's mpd module whenever mpd playing status changes
 
-mkdir -p ${XDG_RUNTIME_DIR}/mpd
-pgrep -x mpd >/dev/null || mpd
+pkill -f 'mpc idle'
 
 while : ; do
     mpc idle >/dev/null \

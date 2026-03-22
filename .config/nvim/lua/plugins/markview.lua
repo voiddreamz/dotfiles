@@ -48,7 +48,7 @@ require("markview").setup({
 	},
 
 	typst = {
-		enable = true,
+		enable = false,
 	},
 
 	html = {
