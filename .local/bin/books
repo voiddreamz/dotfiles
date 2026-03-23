@@ -4,6 +4,15 @@
 # open ebooks with zathura with dynamic menu
 
 SEARCH_PATH="$HOME/doc/ebook"
+case "$1" in
+    ebooks)
+        SEARCH_PATH="$HOME/doc/ebook"
+        ;;
+    slides)
+        SEARCH_PATH="$HOME/doc/class_slides"
+        ;;
+esac
+
 
 if [ "$XDG_SESSION_TYPE" = "wayland" ]; then
     menu=${HOME}/.local/bin/wmenu-color

@@ -6,7 +6,7 @@
 map="riverctl map"
 
 floating="floating"
-wmenu="[w]iki [h]eart [m]ount [u]nmount [b]lue [s]peaker [e]moji b[o]ok"
+wmenu="[w]iki [h]eart [m]ount [u]nmount [b]lue [s]peaker [e]moji b[o]ok s[l]ides"
 dunst="clip-w[i]pe [l]supdates d[w] d[c]al ls[m]us"
 wlrctl="[hjkl]cursors [,]left [.]right [m]iddle ^[hjkl]arrows"
 
@@ -45,13 +45,13 @@ $map "$wmenu" None Escape enter-mode normal
 $map "$wmenu" None w spawn "riverctl enter-mode normal && ${HOME}/.local/bin/wiki"
 $map "$wmenu" None h spawn "riverctl enter-mode normal && ${HOME}/.local/bin/heart"
 $map "$wmenu" None b spawn "riverctl enter-mode normal && ${HOME}/.local/bin/blue"
-$map "$wmenu" None o spawn "riverctl enter-mode normal && ${HOME}/.local/bin/books"
+$map "$wmenu" None o spawn "riverctl enter-mode normal && ${HOME}/.local/bin/books ebooks"
 $map "$wmenu" None m spawn "riverctl enter-mode normal && ${HOME}/.local/bin/saddle --mount"
 $map "$wmenu" None u spawn "riverctl enter-mode normal && ${HOME}/.local/bin/saddle --unmount"
 $map "$wmenu" None p spawn "riverctl enter-mode normal && ${HOME}/.local/bin/picker"
 $map "$wmenu" None s spawn "riverctl enter-mode normal && ${HOME}/.local/bin/speaker"
 $map "$wmenu" None e spawn "riverctl enter-mode normal && ${HOME}/.local/bin/emoji"
-
+$map "$wmenu" None l spawn "riverctl enter-mode normal && ${HOME}/.local/bin/books slides"
 
 # dunst ########################################################################
 riverctl declare-mode "$dunst"
