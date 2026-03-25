@@ -8,5 +8,3 @@ config_version: 2
 settings:
   tabs.show:
     global: always
-  tabs.width:
-    global: 10%
