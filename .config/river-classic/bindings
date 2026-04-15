@@ -7,6 +7,7 @@ map="riverctl map"
 mod=Mod4    # Mod1=Alt, Mod4=Super
 term="footclient"
 menu="${HOME}/.local/bin/wmenu-run-color"
+r# https://codeberg.org/unixchad/riverdeck
 command -v riverdeck >/dev/null 2>&1 && tiler="riverdeck" || tiler="rivertile"
 
 $map normal ${mod}+Shift r                  spawn "${HOME}/.config/river-classic/init"
@@ -16,10 +17,10 @@ $map normal $mod p                          spawn "$menu"
 $map normal $mod+Shift p                    spawn "ls /usr/share/applications/*.desktop | xargs -n 1 basename | sed 's/\.desktop//' | wmenu-color | xargs -I {} dex /usr/share/applications/{}.desktop"
 $map normal $mod Return                     spawn "$term"
 $map normal $mod v                          spawn "$term -T \"Floating_Term\" -o colors.alpha=0.9 abduco -A dvtm dvtm-status"
-$map normal $mod e                          spawn "$term sh -c 'sleep 0.03 && lf'"
-#$map normal ${mod}+Shift e                  spawn "nautilus"
-$map normal $mod q                          spawn "qutebrowser"
-
+$map normal $mod r                          spawn "$term sh -c 'sleep 0.03 && lf'"
+$map normal $mod q                          spawn qutebrowser
+$map normal $mod s                          spawn scrivano
+$map normal $mod r                          spawn obsidian
 for mode in "normal" "locked"; do
 $map -repeat $mode $mod minus                        spawn "${HOME}/.local/bin/audio sink --minus10"
 $map -repeat $mode $mod equal                        spawn "${HOME}/.local/bin/audio sink --plus10"
@@ -104,19 +105,26 @@ $map normal $mod Space                      toggle-float
 $map normal $mod f                          toggle-fullscreen
 
 $map normal $mod apostrophe                 spawn "river-shifttags --occupied"
-$map normal $mod semicolon                  spawn "river-shifttags --shift -1 --occupied"
+$map normal $mod semicolon                  spawn "river-shifttags --occupied --shift -1"
 $map normal ${mod}+Shift apostrophe         spawn "river-shifttags"
 $map normal ${mod}+Shift semicolon          spawn "river-shifttags --shift -1"
+$map normal ${mod}+Control apostrophe       spawn "river-shifttags --unoccupied"
+$map normal ${mod}+Control semicolon        spawn "river-shifttags --unoccupied --shift -1"
 
 $map normal ${mod}+Control h                focus-view left
-$map normal ${mod}+Control j                focus-view next
-$map normal ${mod}+Control k                focus-view previous
+$map normal ${mod}+Control j                focus-view down
+$map normal ${mod}+Control k                focus-view up
 $map normal ${mod}+Control l                focus-view right
 
 $map normal ${mod}+Shift h                  swap left
 $map normal ${mod}+Shift j                  swap next
 $map normal ${mod}+Shift k                  swap previous
 $map normal ${mod}+Shift l                  swap right
+
+$map normal ${mod}+Shift+Control h          swap left
+$map normal ${mod}+Shift+Control j          swap down
+$map normal ${mod}+Shift+Control k          swap up
+$map normal ${mod}+Shift+Control l          swap right
 
 # mouse
 $map-pointer normal $mod BTN_LEFT           move-view

@@ -1,4 +1,5 @@
 # vim:ft=sh
+# @author nate zhou
 # @since 2025,2026
 # zsh completion for my scripts in ${HOME}/.local/bin/*
 
@@ -153,7 +154,7 @@ compdef _muttauth muttauth
 _reload() {
     local options modules
     options=("--cronjobs" "--damblocks-fifo" "--damblocks-xsetroot" \
-             "--module" "--help")
+             "--module" "--kwm" "--help")
     modules=($(lsmod | cut -d' ' -f1))
     used=(${words[2,-1]})
     remaining=(${options:|used})

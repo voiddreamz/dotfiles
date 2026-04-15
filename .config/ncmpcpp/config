@@ -1,14 +1,14 @@
 # vim:ft=conf
 # ncmpcpp/config
 # @author nate zhou
-# @since 2023,2024,2025
+# @since 2023,2024,2025,2026
 
 # fixed window title
 song_window_title_format = ncmpcpp
 
 ncmpcpp_directory = ~/.config/ncmpcpp
 lyrics_directory = ~/mus/.lyrics
-mpd_host = "/run/user/1000/mpd/socket"
+mpd_host = localhost
 mpd_port = 6600
 mpd_connection_timeout = 5
 mpd_music_dir = ~/mus
@@ -44,8 +44,8 @@ song_columns_list_format = (20)[]{a} (3f)[8]{NE:T} (40)[cyan]{t|f:Title} (5f)[8]
 current_item_prefix = $b$(8_15)
 current_item_suffix = $/b$(end)
 
-now_playing_prefix = $b$(1_15)
-now_playing_suffix = $/b$(end)
+now_playing_prefix = $(10)
+now_playing_suffix = $(end)
 
 current_item_inactive_column_prefix = $(8)$r
 selected_item_prefix = $4
@@ -57,3 +57,6 @@ browser_playlist_prefix = "$(12)[playlist]$9"
 playlist_disable_highlight_delay = 0
 
 visualizer_color = 47, 83, 119, 155, 191, 227, 221, 215, 209, 203, 197, 161
+
+statusbar_color = 10
+statusbar_time_color = white

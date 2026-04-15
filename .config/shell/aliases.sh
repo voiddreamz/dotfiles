@@ -1,4 +1,5 @@
 # .config/shell/aliases.sh
+# @author nate zhou
 # @since 2023,2024,2025,2026
 # general aliases for bash/zsh
 
@@ -14,7 +15,7 @@ alias yain="yay -S"
 alias usrup="yay -Syu"
 alias cmd="command"
 
-alias w="startw"
+alias wl="startw"
 alias km="${HOME}/.local/bin/startw kwm"
 alias dl="${HOME}/.local/bin/startw dwl"
 alias rc="${HOME}/.local/bin/startw river-classic"
@@ -145,6 +146,7 @@ alias po="pacman -Qo"
 alias pd="pactree -d1"
 alias pv="pactree -rd1"
 alias pdep="sudo pacman -Syu --needed --asdeps"
+alias rmpd="sudo rm -i /var/lib/pacman/db.lck"
 
 alias gpl="gpg --list-keys"
 alias gpls="gpg --list-secret-keys"
@@ -191,6 +193,10 @@ alias gla="git log --graph --all --name-only --show-signature"
 alias gh="git log --graph --pretty=format:'%Cred%h%Creset%C(yellow)%d%Creset %s%Cgreen(%cr)' --abbrev-commit | /usr/bin/fzf --layout=reverse-list --preview-window=80%:bottom: --preview 'parse-fgl {}' | cut -d' ' -f2 | xargs -I{} git rev-parse {} | wl-copy"
 alias gcl="git clone"
 
+alias zbr="zig build -Doptimize=ReleaseSafe"
+alias zbd="zig build -Doptimize=Debug"
+alias zil="test -d zig-out && sudo rsync -av --no-perms --no-owner --no-group zig-out/ /usr/local"
+
 alias jvi="vim /usr/lib/jvm/default/lib/src.zip"
 
 alias ftree="realpath * | /usr/bin/fzf --prompt='ftree: ' --reverse --preview 'tree -L1 {}'"
@@ -203,4 +209,4 @@ alias ttyperb="ttyper -w 25 -l bash"
 # tlp
 alias tlpps="sudo tlp power-saver"
 alias tlpper="sudo tlp performance"
-alias tlpauto="sudo tlp auto"
+alias tlpat="sudo tlp auto"

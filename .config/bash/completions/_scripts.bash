@@ -1,4 +1,5 @@
 # vim:ft=sh
+# @author nate zhou
 # @since 2025,2026
 # bash completion for my scripts in ${HOME}/.local/bin/*
 
@@ -180,7 +181,7 @@ complete -F _muttauth muttauth
 _reload() {
     local options modules used remaining
     options=("--cronjobs" "--damblocks-fifo" "--damblocks-xsetroot" \
-             "--module" "--help")
+             "--module" "--kwm" "--help")
     modules=($(lsmod | cut -d' ' -f1))
     used=("${COMP_WORDS[@]:1:COMP_CWORD-1}")
     remaining=()
@@ -258,3 +259,13 @@ _sharepkg() {
     COMPREPLY=($(compgen -W "${remaining[*]}" -- "${COMP_WORDS[COMP_CWORD]}"))
 }
 complete -F _sharepkg sharepkg
+
+_ala() {
+    local options
+    local current_word="${COMP_WORDS[COMP_CWORD]}"
+    options="-d --delete -h --help"
+    if [ "$COMP_CWORD" -eq 1 ]; then
+        COMPREPLY=($(compgen -W "${options}" -- ${current_word}))
+    fi
+}
+complete -F _ala ala

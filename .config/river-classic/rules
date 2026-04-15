@@ -24,3 +24,16 @@ $add -app-id "kdenlive" float # file chooser
 $add -app-id "electron" -title "Open Folder" float #code-oss
 
 $add -app-id "org.fcitx.fcitx5-config-qt" float
+
+# Workspace assignments
+# foot (all terminal apps) → workspace 1
+$add -app-id "foot" tags 1
+
+# Obsidian → workspace 2
+$add -app-id "obsidian" tags 2
+
+# Scrivano → workspace 3 (tag value: 4)
+$add -app-id "Scrivano" tags 4
+
+# qutebrowser → workspace 4 (tag value: 8)
+$add -app-id "qutebrowser" tags 8

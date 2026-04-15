@@ -312,7 +312,7 @@ key_binder:
       - moran:/key_bindings/moran_toggle_inflexible
       # 大寫字母追加輔助碼到上一音節
       # 該功能可使用 Shift-tab 替代
-      # - moran:/key_bindings/moran_capital_for_last_syllable
+      - moran:/key_bindings/moran_capital_for_last_syllable
 
 recognizer:
   import_preset: default
@@ -447,7 +447,7 @@ moran:
   # both: 允許繁體和簡體同時顯示
   # simp: 只顯示簡化字
   # trad: 只顯示繁體字
-  charset: both
+  charset: simp
 
   # 重複略碼功能
   # 一些輸入中存在字詞重複，如「好不好」「看了看」「想一想」。
