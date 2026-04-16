@@ -9,8 +9,7 @@ wc=${1:-kwm}
 
 case "$wc" in
     dwl)
-        damblocks --fifo &
-        exec ssh-agent tail -f ${XDG_RUNTIME_DIR}/damblocks.fifo | dwl
+        tail -f ${XDG_RUNTIME_DIR}/damblocks.fifo | exec ssh-agent dwl
         ;;
     river-classic)
         exec ssh-agent river-classic -c ${HOME}/.config/river-classic/init
@@ -19,7 +18,6 @@ case "$wc" in
         exec ssh-agent river
         ;;
     kwm)
-        damblocks --fifo &
         exec ssh-agent river -c 'kwm'
         ;;
     sway)
