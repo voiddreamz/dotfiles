@@ -14,7 +14,7 @@ autostart() {
 
     #${HOME}/.local/bin/mbs-cron &
 
-xss-lock -- i3lock -i ${HOME}/pic/wallpaper/021.jpg -f  &
+    xss-lock -- slock  &
 
     #redshift -P -O 5000 &
 
