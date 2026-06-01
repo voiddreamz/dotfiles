@@ -32,6 +32,17 @@ local function toggle_antialiasing()
     end
 end
 
+local is_slideshow_chessboard = false
+local function toggle_slideshow_chessboard()
+    if is_slideshow_chessboard then
+        swayimg.slideshow.set_image_background(0xff111111)
+        is_slideshow_chessboard = false
+    else
+        swayimg.slideshow.set_image_chessboard(8,0xff666666,0xff999999)
+        is_slideshow_chessboard = true
+    end
+end
+
 local function toggle_text()
     if swayimg.text.visible() then
         swayimg.text.hide()
@@ -117,16 +128,14 @@ swayimg.slideshow.on_key("Right", function()
   swayimg.slideshow.set_abs_position(math.floor(pos.x - wnd.width / 10), pos.y);
 end)
 swayimg.slideshow.on_key("i", function()
-    local pos = swayimg.get_mouse_pos()
     local scale = swayimg.slideshow.get_scale()
     scale = scale + scale / 10
-    swayimg.slideshow.set_abs_scale(scale, pos.x, pos.y);
+    swayimg.slideshow.set_abs_scale(scale);
 end)
 swayimg.slideshow.on_key("o", function()
-    local pos = swayimg.get_mouse_pos()
     local scale = swayimg.slideshow.get_scale()
     scale = scale - scale / 10
-    swayimg.slideshow.set_abs_scale(scale, pos.x, pos.y);
+    swayimg.slideshow.set_abs_scale(scale);
 end)
 swayimg.slideshow.on_key("n", function()
     swayimg.slideshow.switch_image("next")
@@ -144,19 +153,20 @@ swayimg.slideshow.on_key("period", function()
     swayimg.slideshow.next_frame()
 end)
 swayimg.slideshow.on_key("space", toggle_slideshow_animation)
-swayimg.slideshow.on_key("Shift+r", function()
+swayimg.slideshow.on_key("Ctrl+r", function()
     swayimg.slideshow.rotate(270)
 end)
 swayimg.slideshow.on_key("r", function()
     swayimg.slideshow.rotate(90)
 end)
-swayimg.slideshow.on_key("Shift+v", function()
+swayimg.slideshow.on_key("Ctrl+v", function()
     swayimg.slideshow.flip_horizontal()
 end)
 swayimg.slideshow.on_key("v", function()
     swayimg.slideshow.flip_vertical()
 end)
 swayimg.slideshow.on_key("a", toggle_antialiasing)
+swayimg.slideshow.on_key("Shift+a", toggle_slideshow_chessboard)
 swayimg.slideshow.on_key("w", function()
     swayimg.slideshow.set_fix_scale("width")
 end)
@@ -169,8 +179,10 @@ end)
 swayimg.slideshow.on_key("Shift+f", function()
     swayimg.slideshow.set_fix_scale("fill")
 end)
+swayimg.slideshow.on_key("t", swayimg.slideshow.mark_image)
 
 swayimg.slideshow.on_key("Shift+d", functions.delete)
+swayimg.slideshow.on_key("Shift+r", functions.rename)
 swayimg.slideshow.on_key("Shift+s", functions.qrscan)
 swayimg.slideshow.on_key("Shift+w", functions.setwall)
 swayimg.slideshow.on_key("Shift+i", functions.invert)

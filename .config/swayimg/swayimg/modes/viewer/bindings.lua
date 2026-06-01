@@ -28,6 +28,17 @@ local function toggle_antialiasing()
     end
 end
 
+local is_viewer_chessboard = false
+local function toggle_viewer_chessboard()
+    if is_viewer_chessboard then
+        swayimg.viewer.set_image_background(0xff111111)
+        is_viewer_chessboard = false
+    else
+        swayimg.viewer.set_image_chessboard(8,0xff666666,0xff999999)
+        is_viewer_chessboard = true
+    end
+end
+
 local function toggle_text()
     if swayimg.text.visible() then
         swayimg.text.hide()
@@ -107,16 +118,14 @@ swayimg.viewer.on_key("Right", function()
     swayimg.viewer.set_abs_position(math.floor(pos.x - wnd.width / 10), pos.y);
 end)
 swayimg.viewer.on_key("i", function()
-    local pos = swayimg.get_mouse_pos()
     local scale = swayimg.viewer.get_scale()
     scale = scale + scale / 10
-    swayimg.viewer.set_abs_scale(scale, pos.x, pos.y);
+    swayimg.viewer.set_abs_scale(scale);
 end)
 swayimg.viewer.on_key("o", function()
-    local pos = swayimg.get_mouse_pos()
     local scale = swayimg.viewer.get_scale()
     scale = scale - scale / 10
-    swayimg.viewer.set_abs_scale(scale, pos.x, pos.y);
+    swayimg.viewer.set_abs_scale(scale);
 end)
 swayimg.viewer.on_key("n", function()
     swayimg.viewer.switch_image("next")
@@ -134,19 +143,20 @@ swayimg.viewer.on_key("period", function()
     swayimg.viewer.next_frame()
 end)
 swayimg.viewer.on_key("space", toggle_viewer_animation)
-swayimg.viewer.on_key("Shift+r", function()
+swayimg.viewer.on_key("Ctrl+r", function()
     swayimg.viewer.rotate(270)
 end)
 swayimg.viewer.on_key("r", function()
     swayimg.viewer.rotate(90)
 end)
-swayimg.viewer.on_key("Shift+v", function()
+swayimg.viewer.on_key("Ctrl+v", function()
     swayimg.viewer.flip_horizontal()
 end)
 swayimg.viewer.on_key("v", function()
     swayimg.viewer.flip_vertical()
 end)
 swayimg.viewer.on_key("a", toggle_antialiasing)
+swayimg.viewer.on_key("Shift+a", toggle_viewer_chessboard)
 swayimg.viewer.on_key("w", function()
     swayimg.viewer.set_fix_scale("width")
 end)
@@ -159,8 +169,10 @@ end)
 swayimg.viewer.on_key("Shift+f", function()
     swayimg.viewer.set_fix_scale("fill")
 end)
+swayimg.viewer.on_key("t", swayimg.viewer.mark_image)
 
 swayimg.viewer.on_key("Shift+d", functions.delete)
+swayimg.viewer.on_key("Shift+r", functions.rename)
 swayimg.viewer.on_key("Shift+s", functions.qrscan)
 swayimg.viewer.on_key("Shift+w", functions.setwall)
 swayimg.viewer.on_key("Shift+i", functions.invert)
