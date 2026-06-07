@@ -34,7 +34,7 @@ augroup END
 
 augroup qutebrowser
     autocmd!
-    autocmd BufRead,BufNewFile /tmp/qutebrowser-* setlocl filetype=markdown
+    autocmd BufRead,BufNewFile /tmp/qutebrowser-* setlocal filetype=markdown
 augroup END
 
 augroup org

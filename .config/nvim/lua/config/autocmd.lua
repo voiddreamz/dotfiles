@@ -9,21 +9,21 @@ vim.api.nvim_create_autocmd('BufEnter', {
         vim.opt_local.formatoptions:remove({ 'c', 'r', 'o' })
     end,
 })
---
--- vim.api.nvim_create_augroup('secret', { clear = true })
--- vim.api.nvim_create_autocmd({'BufRead', 'BufNewFile'}, {
---     group = 'secret',
---     pattern = '~/doc/.gpg',
---     callback = function()
---         vim.opt_local.noswapfile = true
---         vim.opt_local.noundofile = true
---         vim.opt_local.nobackup = true
---         vim.opt_local.nowritebackup = true
---         vim.opt_local.nonumber = true
---         vim.opt_local.norelativenumber = true
---     end,
--- })
---
+
+vim.api.nvim_create_augroup('secret', { clear = true })
+vim.api.nvim_create_autocmd({'BufRead', 'BufNewFile'}, {
+    group = 'secret',
+    pattern = '~/doc/.gpg',
+    callback = function()
+        vim.opt_local.noswapfile = true
+        vim.opt_local.noundofile = true
+        vim.opt_local.nobackup = true
+        vim.opt_local.nowritebackup = true
+        vim.opt_local.nonumber = true
+        vim.opt_local.norelativenumber = true
+    end,
+})
+
 vim.api.nvim_create_augroup('scripts', { clear = true })
 vim.api.nvim_create_autocmd('BufWritePost', {
     group = 'scripts',
@@ -95,4 +95,12 @@ vim.api.nvim_create_autocmd({'BufRead', 'BufNewFile'}, {
     callback = function()
         vim.opt_local.filetype = 'sh'
     end,
+})
+
+-- auto-refresh statusline when coc status changes
+vim.api.nvim_create_autocmd('User', {
+  pattern = 'CocStatusChange',
+  callback = function()
+    vim.cmd('redrawstatus')
+  end
 })

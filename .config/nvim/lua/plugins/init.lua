@@ -29,6 +29,7 @@ Plug('voldikss/vim-floaterm')
 Plug('ptzz/lf.vim')
 
 Plug('h-hg/fcitx.nvim')
+
 Plug('3rd/image.nvim')
 
 -- Self Plug:
@@ -59,6 +60,7 @@ Plug('nvim-tree/nvim-web-devicons')
 
 vim.call('plug#end')
 
+require('plugins.coc')
 require('plugins.nvim-colorizer')
 require('plugins.nvim-treesitter')
 require('plugins.nvim-treesitter-context')
@@ -67,3 +69,4 @@ require('plugins.markview')
 require('plugins.vim-floaterm')
 require('plugins.lf')
 require('plugins.markdown_setup')
+require('plugins.image')

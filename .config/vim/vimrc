@@ -3,7 +3,9 @@
 " @author nate zhou
 " @since 2023,2024,2025,2026
 
+source ${HOME}/.config/vim/functions.vim
 source ${HOME}/.config/vim/autocmd.vim
+source ${HOME}/.config/vim/commands.vim
 source ${HOME}/.config/vim/bindings.vim
 
 set viminfofile=~/.config/vim/viminfo

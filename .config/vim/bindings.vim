@@ -8,9 +8,12 @@ let mapleader=" "   " set space as leader key
 tnoremap <leader><ESC> <C-\><C-n>
 tnoremap <leader>q <C-\><C-n>:quit!<CR>
 tnoremap <C-q> <C-\><C-n>:quit!<CR>
+tnoremap <C-k> <C-\><C-n>:wincmd k<CR>
 
-nnoremap <leader><CR> :terminal<CR>
-nnoremap <C-CR> :terminal<CR>
+nnoremap <silent> <C-CR> :TermToggle<CR>
+tnoremap <silent> <C-CR> <C-\><C-n>:TermToggle<CR>
+
+nnoremap <silent> <C-S-CR> :call NewTerminalSplit()<CR>
 
 nnoremap W :w \|e<Left><Left>
 nnoremap <leader>q :q<CR>
@@ -46,6 +49,10 @@ nnoremap <C-w>y :vertical resize -2<CR>
 nnoremap <C-w>u :resize +2<CR>
 nnoremap <C-w>i :resize -2<CR>
 nnoremap <C-w>o :vertical resize +2<CR>
+tnoremap <C-w>y <C-\><C-n>:vertical resize -2<CR>i
+tnoremap <C-w>u <C-\><C-n>:resize +2<CR>i
+tnoremap <C-w>i <C-\><C-n>:resize -2<CR>i
+tnoremap <C-w>o <C-\><C-n>:vertical resize +2<CR>i
 
 " tab
 nnoremap <leader>O :tabnew<CR>
@@ -66,3 +73,5 @@ nnoremap <leader>th :set hlsearch!<CR>
 nnoremap <leader>tn :set relativenumber!<CR>
 
 nnoremap <leader>f :FZF<CR>
+
+vnoremap <leader>ds :s/\s\+$//e <Bar> s/^\s\+$//e<CR>
