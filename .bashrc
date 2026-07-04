@@ -78,3 +78,4 @@ export GPG_TTY=$(tty) # TUI pinentry, need be set for each pts
 
 
 export PATH="$HOME/.npm-global/bin:$PATH"
+export PATH="/opt/miktex/bin:$PATH"

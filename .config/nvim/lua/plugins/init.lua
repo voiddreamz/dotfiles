@@ -32,6 +32,8 @@ Plug('h-hg/fcitx.nvim')
 
 Plug('3rd/image.nvim')
 
+Plug('gnuunixchad/toggle-term.nvim')
+
 -- Self Plug:
 -- Markdown Preview
 Plug('iamcco/markdown-preview.nvim', { ['do'] = 'cd app && pnpm install', ['for'] = {'markdown', 'vim-plug'} })
@@ -60,7 +62,6 @@ Plug('nvim-tree/nvim-web-devicons')
 
 vim.call('plug#end')
 
-require('plugins.coc')
 require('plugins.nvim-colorizer')
 require('plugins.nvim-treesitter')
 require('plugins.nvim-treesitter-context')
@@ -70,3 +71,4 @@ require('plugins.vim-floaterm')
 require('plugins.lf')
 require('plugins.markdown_setup')
 require('plugins.image')
+require('plugins.toggle-term')

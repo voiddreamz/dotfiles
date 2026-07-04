@@ -34,7 +34,7 @@ set_variables() {
 wipe_history() {
     set_variables
 
-    choice="$(echo -e "no\nyes" \
+    choice="$(printf "no\nyes" \
               | $menu -p "$(basename $0): wipe clipboard history?")"
 
     if [ "$choice" = "yes" ]; then

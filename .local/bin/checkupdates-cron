@@ -20,7 +20,8 @@ update_cache() {
     if [ -n "$result" ]; then
         checkupdates --nocolor && echo "$result" \
             | awk '{print $1}' \
-            | tr '\n' ' ' > "$LOG_CACHE" \
+            | sort \
+            > "$LOG_CACHE" \
             || echo "$result" > "$ERR_CACHE"
     else
         # if no updates available, overwrite cache with empty string

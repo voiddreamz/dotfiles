@@ -3,6 +3,10 @@
 # @author nate zhou
 # @since 2025,2026
 
+# xdg-desktop-portal: tell systemd this is a graphical session (river on Wayland)
+export XDG_CURRENT_DESKTOP=river
+systemctl --user import-environment DISPLAY WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
+
 # https://codeberg.org/unixchad/kwm
 # https://github.com/gnuunixchad/kwm
 /usr/local/bin/kwm &
