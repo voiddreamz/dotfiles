@@ -3,6 +3,10 @@
 # @since 2025,2026
 # river-classic/init
 
+# xdg-desktop-portal: tell systemd this is a graphical session on river/Wayland
+export XDG_CURRENT_DESKTOP=river
+systemctl --user import-environment DISPLAY WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
+
 . $HOME/.local/bin/colors.sh    # source colorscheme
 . $HOME/.config/river-classic/autostart
 . $HOME/.config/river-classic/bindings

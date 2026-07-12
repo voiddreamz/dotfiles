@@ -22,7 +22,8 @@ export PAGER="/usr/bin/less"
 export DVTM_EDITOR="/usr/bin/vim"
 export DVTM_PAGER="/usr/bin/less -R"
 export BROWSER="qutebrowser"
-command -v pacman > /dev/null && pacman -Qi nvidia-utils > /dev/null 2>&1 && export QTWEBENGINE_CHROMIUM_FLAGS='--disable-gpu' # fix qutebrowser crash on wlroots with nvidia
+# QtWebEngine performance: Skia renderer + zero-copy + GPU raster + hardware video decode
+export QTWEBENGINE_CHROMIUM_FLAGS="--enable-features=UseSkiaRenderer,VaapiVideoDecodeLinuxGL --enable-zero-copy --num-raster-threads=4 --enable-gpu-rasterization"
 
 export XDG_DOWNLOAD_DIR="$HOME/dls"
 export XDG_DOCUMENTS_DIR="$HOME/doc"
@@ -36,6 +37,8 @@ export XDG_CACHE_HOME="$HOME/.cache"        # analogous to /var/cache
 export XDG_DATA_HOME="$HOME/.local/share"   # analogous to /usr/share
 export XDG_STATE_HOME="$HOME/.local/state"
 export XDG_RUNTIME_DIR="/run/user/1000"
+# xdg-desktop-portal: required for portal backend selection (matches UseIn in .portal files)
+export XDG_CURRENT_DESKTOP=river
 export INPUTRC="$XDG_CONFIG_HOME/readline/inputrc"
 #export DBUS_SESSION_BUS_ADDRESS="/run/user/1000/bus"
 
@@ -80,3 +83,4 @@ export _JAVA_AWT_WM_NONREPARENTING=1 # fix java blank window in xwayland-satelli
 #export XMODIFIERS=@im=ibus
 #export QT_IM_MODULE=ibus
 export STARDICT_DATA_DIR=~/.local/share/dict
+export GNOME_KEYRING_CONTROL=/run/user/1000/keyring

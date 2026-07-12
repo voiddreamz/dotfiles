@@ -38,3 +38,4 @@ pgrep 'wob' || $spawn "${HOME}/.local/bin/wobd" &
 
 $spawn "fcitx5 -d --verbose '*=0'" & # conflicts with wtype
 $spawn "sudo rmmod wacom"
+$spawn "gnome-keyring-daemon --start --components=secrets"

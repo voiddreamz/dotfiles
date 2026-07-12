@@ -91,7 +91,8 @@ c.completion.open_categories = ['filesystem']
 
 # --- Fix Google Login and Bing JS issues ---
 # Fake a modern Chrome User Agent to bypass "insecure browser" checks
-c.content.headers.user_agent = 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36'
+c.content.headers.user_agent = 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/132.0.0.0 Safari/537.36'
+c.content.cache.size = 52428800  # 50MB disk cache
 
 # Ensure JavaScript and common storage features are enabled for trusted sites
 config.set('content.javascript.enabled', True, 'https://*.google.com/*')
