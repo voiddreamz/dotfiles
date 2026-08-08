@@ -38,6 +38,7 @@ export XDG_DATA_HOME="$HOME/.local/share"   # analogous to /usr/share
 export XDG_STATE_HOME="$HOME/.local/state"
 export XDG_RUNTIME_DIR="/run/user/1000"
 # xdg-desktop-portal: required for portal backend selection (matches UseIn in .portal files)
+# 当前桌面环境为 GNOME(river 时代遗留的 river 值会破坏 GNOME 集成,如 Settings 拒跑)
 export XDG_CURRENT_DESKTOP=river
 export INPUTRC="$XDG_CONFIG_HOME/readline/inputrc"
 #export DBUS_SESSION_BUS_ADDRESS="/run/user/1000/bus"
@@ -66,8 +67,6 @@ export ABDUCO_SOCKET_DIR=$XDG_RUNTIME_DIR # abduco
 
 export QT_QPA_PLATFORMTHEME=qt5ct # qt theme
 export QT_STYLE_OVERRIDE=adwaita-dark # qt theme
-export GTK_THEME=Adwaita-dark # for firejail'ed libreoffice theme
-
 export _JAVA_AWT_WM_NONREPARENTING=1 # fix java blank window in xwayland-satellite
 
 #export ELECTRON_OZONE_PLATFORM_HINT=wayland # electron

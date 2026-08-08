@@ -7,9 +7,41 @@
 // custom settings, run `zed: open default settings` from the
 // command palette (cmd-shift-p / ctrl-shift-p)
 {
+  "agent_ui_font_size": 17.0,
+  "language_models": {
+    "opencode": {
+      "show_go_models": false
+    }
+  },
+  "disable_ai": false,
+  "agent_ui_font_family": "HONORSansCN Nerd Font",
+  "project_panel": {
+    "dock": "left"
+  },
+  "outline_panel": {
+    "dock": "left"
+  },
+  "collaboration_panel": {
+    "dock": "left"
+  },
+  "agent": {
+    "default_model": {
+      "provider": "opencode",
+      "model": "zen/deepseek-v4-flash",
+      "enable_thinking": true,
+      "effort": "high"
+    },
+    "single_file_review": true,
+    "dock": "right",
+    "favorite_models": [],
+    "model_parameters": []
+  },
+  "git_panel": {
+    "dock": "left"
+  },
   "buffer_font_family": "Hack",
   "autosave": "on_focus_change",
-  "ui_font_family": "HONORSans Nerd Font",
+  "ui_font_family": "Noto Sans CJK SC",
   "telemetry": {
     "diagnostics": false,
     "metrics": false
@@ -19,11 +51,11 @@
   },
   "base_keymap": "JetBrains",
   "icon_theme": "Zed (Default)",
-  "ui_font_size": 16,
-  "buffer_font_size": 15,
+  "ui_font_size": 17.0,
+  "buffer_font_size": 17.0,
   "theme": {
-    "mode": "dark",
-    "light": "Gruvbox Light",
-    "dark": "Darker Horizon",
+    "mode": "system",
+    "light": "Darker Horizon",
+    "dark": "Tokyo Night"
   },
 }

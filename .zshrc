@@ -121,3 +121,5 @@ esac
 # pnpm end
 export PATH="$HOME/.npm-global/bin:$PATH"
 export PATH="/opt/miktex/bin:$PATH"
+
+# Codex -> OpenCode Zen (token embedded in ~/.codex/config.toml)
