@@ -1,3 +1,12 @@
+# [science]
+https://www.quantamagazine.org/mathematics/feed/ "~Quanta Mathematics" science math
+https://www.quantamagazine.org/physics/feed/ "~Quanta Physics" science physics
+
+# [conversation] 英语学习素材：学者撰写、记者编辑，feed 含全文
+https://theconversation.com/us/technology/articles.atom "~Conversation Science+Tech" conversation english science
+https://theconversation.com/us/education/articles.atom "~Conversation Education" conversation english education
+https://theconversation.com/us/arts/articles.atom "~Conversation Arts+Culture" conversation english arts literature
+
 https://codeberg.org/unixchad.rss "unixchad" "codeberg"
 
 
@@ -11,8 +20,6 @@ https://lukesmith.xyz/rss.xml "~Luke Smith" blog
 http://www.fsf.org/news/aggregator/RSS "~FSF News" news
 
 # [software]
-https://github.com/martanne/abduco/releases.atom ~abduco terminal cli
-https://github.com/martanne/dvtm/releases.atom ~dvtm terminal tui
 
 https://codeberg.org/river/river/releases.rss ~river git river wm
 https://codeberg.org/river/river-classic/releases.rss ~river-classic git river
@@ -49,9 +56,6 @@ https://github.com/systemd/systemd/releases.atom ~systemd git sys
 https://github.com/swaywm/swaylock/releases.atom ~swaylock git gui wlroots
 https://github.com/swaywm/swaybg/releases.atom ~swaybg git gui wlroots
 https://github.com/swaywm/swayidle/releases.atom ~swayidle git daemon wlroots
-
-https://git.sr.ht/~leon_plickat/lswt/refs/rss.xml ~lswt wlroots
-https://git.sr.ht/~brocellous/wlrctl/refs/rss.xml ~wlrctl wlroots
 
 https://github.com/swaywm/sway/releases.atom ~sway git wm
 https://gitlab.freedesktop.org/wlroots/wlroots/-/releases.atom ~wlroots git wlroots

@@ -1,0 +1,26 @@
+;; broken-keys.kbd — remap broken internal keyboard keys via kanata
+;;
+;; Only the internal laptop keyboard is grabbed; external keyboards stay 100%
+;; untouched. No manual toggling needed.
+;;
+;;   Caps Lock -> s     Tab -> q     ` -> Tab
+;;
+;; Control: systemctl --user stop kanata    (revert internal keyboard to raw)
+;;          systemctl --user start kanata   (re-apply remap)
+
+(defcfg
+  ;; grab only the internal laptop keyboard (PS/2, stable by-path)
+  linux-dev /dev/input/by-path/platform-i8042-serio-0-event-kbd
+  ;; pass through every other key unchanged
+  process-unmapped-keys yes
+  ;; keep waiting if the device is not present yet (e.g. early boot)
+  linux-continue-if-no-devs-found yes
+)
+
+(defsrc
+  caps tab grv
+)
+
+(deflayer base
+  s    q   tab
+)

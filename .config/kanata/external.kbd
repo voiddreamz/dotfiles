@@ -1,0 +1,27 @@
+;; external.kbd — 外接键盘：仅 Alt/Win 互换
+;;
+;; 按设备名匹配（跨连接模式稳定，不用每次改路径）：
+;;   - 有线 USB: "RDMCTMZT EPOMAKER TH40"
+;;   - 2.4G:     "RDMCTMZT Wireless 2.4G Dongle"
+;;   - 蓝牙:     连接后把对应设备名加进下面的列表即可
+;;
+;; 只抓"主键盘接口"（不带 Keyboard/System/Consumer 后缀的那个），
+;; 避免多接口重复按键。Caps<->Esc 由用户在外接键盘固件（VIA）里自行处理，
+;; kanata 不碰 caps/esc。
+
+(defcfg
+  linux-dev-names-include (
+    "RDMCTMZT EPOMAKER TH40"
+    "RDMCTMZT Wireless 2.4G Dongle"
+  )
+  process-unmapped-keys yes
+  linux-continue-if-no-devs-found yes
+)
+
+(defsrc
+  lalt ralt lmeta rmeta
+)
+
+(deflayer base
+  lmeta rmeta lalt ralt
+)

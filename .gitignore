@@ -3,3 +3,7 @@
 .config/fcitx5/rime/*.userdb/
 .config/fcitx5/rime/*.gram
 .config/fcitx5/rime/user.yaml
+
+# neomutt — 含 163 授权码 / Yandex 应用密码,绝不提交
+.config/mutt/account-private.muttrc
+.config/mutt/account-yandex.muttrc

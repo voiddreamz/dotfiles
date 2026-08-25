@@ -1,0 +1,54 @@
+#!/usr/bin/sh
+# mail-unread - 查询 163 IMAP 未读数,写入缓存并刷新 damblocks 状态栏
+# @author voiddreamz
+# @since 2026
+#
+# 为何不用 mbsync:isync 上游 bug #73(add support for imap id extension)未修,
+# mbsync 不发 IMAP ID 命令,163 服务器对每个 SELECT 都回 Unsafe Login。
+# 本脚本直接发 ID + LOGIN + STATUS,兼容 163 的强制要求。
+#
+# 依赖:openssl
+# 用法:由 systemd user timer 每 5 分钟调用一次
+
+MBSYNCRC="$HOME/.mbsyncrc"
+
+USERNAME="$(grep '^User ' "$MBSYNCRC" | head -1 | awk '{print $2}')"
+PASSWORD="$(grep '^Pass ' "$MBSYNCRC" | head -1 | awk '{print $2}')"
+HOST="$(grep '^Host ' "$MBSYNCRC" | head -1 | awk '{print $2}')"
+PORT="$(grep '^Port ' "$MBSYNCRC" | head -1 | awk '{print $2}')"
+[ -n "$PORT" ] || PORT=993
+
+CACHE="${XDG_RUNTIME_DIR}/mail-unread"
+DAMBLOCKS_PID="${XDG_RUNTIME_DIR}/damblocks.pid"
+LOG="/tmp/mail-unread.log"
+
+# 163 的 Junk 文件夹在服务器上叫 &V4NXPpCuTvY- (垃圾邮件)
+FOLDERS='INBOX &V4NXPpCuTvY-'
+
+# 构造 IMAP 命令序列,统一 CRLF;163 对裸 \n 可能响应异常
+{
+    printf 'a ID ("name" "mail-unread" "version" "1.0" "vendor" "local")\r\n'
+    printf 'b LOGIN %s %s\r\n' "$USERNAME" "$PASSWORD"
+    for f in $FOLDERS; do
+        printf 'c STATUS "%s" (UNSEEN)\r\n' "$f"
+    done
+    printf 'd LOGOUT\r\n'
+} | timeout 15 openssl s_client -quiet -connect "${HOST}:${PORT}" 2>/dev/null \
+    | tr -d '\r' > /tmp/mail-unread-raw.log
+
+COUNT=0
+for folder in $FOLDERS; do
+    n="$(grep -a "STATUS \"$folder\"" /tmp/mail-unread-raw.log | sed 's/.*UNSEEN \([0-9]*\).*/\1/')"
+    [ -n "$n" ] && COUNT=$((COUNT + n))
+done
+
+printf '%s' "$COUNT" > "$CACHE"
+
+# 刷新 damblocks (RTMIN+7 = 信号 41);damblocks 不在也允许脚本成功退出
+if [ -f "$DAMBLOCKS_PID" ]; then
+    kill -41 "$(cat "$DAMBLOCKS_PID")" 2>/dev/null
+fi
+
+[ -n "$VERBOSE" ] && echo "unread=$COUNT cached=$CACHE" >> "$LOG"
+
+exit 0

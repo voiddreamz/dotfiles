@@ -12,7 +12,10 @@
 [ -x /usr/bin/bat ] && export MANROFFOPT="-c" && export MANPAGER="sh -c 'col -bx | bat --pager \"less -XR\" -l man -p'"
 export MANWIDTH=80
 
-export XKB_DEFAULT_OPTIONS=caps:swapescape,altwin:swap_alt_win
+# 2026-08-20: 已移除——XKB_DEFAULT_OPTIONS 会让 libxkbcommon 在"未显式指定 options"
+# 的所有键位里注入 swap（caps:swapescape/altwin:swap_alt_win），这正是 river 上
+# Esc/Alt 一直"被交换"的根因。键位映射已全部移交 kanata 按设备处理。
+# export XKB_DEFAULT_OPTIONS=caps:swapescape,altwin:swap_alt_win
 
 export TERM=xterm-256color
 export LANG=en_US.UTF-8

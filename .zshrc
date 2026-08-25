@@ -123,3 +123,8 @@ export PATH="$HOME/.npm-global/bin:$PATH"
 export PATH="/opt/miktex/bin:$PATH"
 
 # Codex -> OpenCode Zen (token embedded in ~/.codex/config.toml)
+
+# >>> oh-my-opencode-slim background subagents >>>
+export OPENCODE_EXPERIMENTAL_BACKGROUND_SUBAGENTS=true
+export OPENCODE_ENABLE_EXA=1
+# <<< oh-my-opencode-slim background subagents <<<

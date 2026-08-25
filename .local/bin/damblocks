@@ -270,30 +270,15 @@ update_pacman() {
 }
 
 update_mutt() {
-    local MBSYNC_CACHE="${XDG_RUNTIME_DIR}/mbsync-cron"
+    local MAIL_UNREAD_CACHE="${XDG_RUNTIME_DIR}/mail-unread"
 
-    [ -f "$MBSYNC_CACHE" ] || { mutt="󱏣"; return; }
+    # cache file written by `${HOME}/.local/bin/mail-unread`
+    [ -f "$MAIL_UNREAD_CACHE" ] || { mutt="󱏣 "; return; }
 
-    local MAIL_DIR="$HOME/doc/mail"
-    local UPDATE_FREQUENCY=3600 # in seconds
-    local update_time="$(stat -L -c "%Y" "$MBSYNC_CACHE")"
-    local current_time="$(date +%s)"
-    local count=0
-    local icon="󰇮"
-    # Loop through each mailbox directory
-    for mailbox in "$MAIL_DIR"/*; do
-        if [ -d "$mailbox" ]; then
-            # Manually specify folders instead of using brace expansion
-            for folder in "$mailbox/INBOX" "$mailbox/Junk"; do
-                if [ -d "$folder/new" ]; then
-                    # Count the number of files in the 'new' directory
-                    count=$(($count + $(find "$folder/new" -type f | wc -l)))
-                fi
-            done
-        fi
-    done
-    [ $((current_time - update_time)) -gt "$UPDATE_FREQUENCY" ] && icon="󱏣"
-    [ "$count" -gt 0 ] && icon="󰛏"
+    local count="$(cat "$MAIL_UNREAD_CACHE" 2>/dev/null)"
+    [ -z "$count" ] && count=0
+    local icon="󰇮 "
+    [ "$count" -gt 0 ] && icon="󰛏 "
     mutt="${icon}${count}"
 }
 
@@ -347,7 +332,7 @@ update_wttr() {
 }
 
 # modules that don't update on their own need to be run at the start for getting their initial value
-update_volume; update_microphone; update_brightness; update_newsboat; update_calcurse;
+update_volume; update_microphone; update_brightness; update_newsboat; update_calcurse; update_mutt;
 
 display () {
     local space=" "
@@ -355,7 +340,7 @@ display () {
     local delimiter_end="]"
     local separator="]["
 #    printf "%s" "${delimiter_home}${mpd}${separator}${wttr}${separator}${calcurse}${space}${newsboat}${space}${mutt}${separator}${pacman}${space}${ttylogin}${space}${uptime}${separator}${root}${space}${home}${separator}${memory}${space}${cpu}${space}${temperature}${space}${fanmode}${separator}${wifi}${space}${ethernet}${separator}${brightness}${space}${microphone}${space}${volume}${separator}${battery}${space}${bluetooth}${separator}${time}${delimiter_end}"
-    printf "%s" "${delimiter_home}${calcurse}${space}${newsboat}${separator}${memory}${space}${cpu}${space}${temperature}${separator}${wifi}${separator}${brightness}${space}${microphone}${space}${volume}${separator}${battery}${space}${bluetooth}${separator}${time}${delimiter_end}"
+    printf "%s" "${delimiter_home}${calcurse}${space}${newsboat}${space}${mutt}${separator}${memory}${space}${cpu}${space}${temperature}${separator}${wifi}${separator}${brightness}${space}${microphone}${space}${volume}${separator}${battery}${space}${bluetooth}${separator}${time}${delimiter_end}"
 
 case "$mode" in
     fifo)
@@ -384,7 +369,7 @@ trap	"update_microphone;display"	"RTMIN+3"   # -37 .local/bin/audio
 trap	"update_brightness;display"	"RTMIN+4"   # -38 .local/bin/bright
 #trap	"update_usb;display"	    "RTMIN+5"   # -39 udev.rules
 # trap	"update_pacman;display"	    "RTMIN+6"   # -40 .local/bin/checkupdates-cron
-# trap	"update_mutt;display"	    "RTMIN+7"   # -41 .local/bin/mbs{,-cron}
+trap	"update_mutt;display"	    "RTMIN+7"   # -41 .local/bin/mail-unread
 trap	"update_newsboat;display"   "RTMIN+8"   # -42 .local/bin/news*
 trap	"update_calcurse;display"   "RTMIN+9"   # -43 .local/bin/calcurse*
 # trap	"update_wttr;display"       "RTMIN+10"  # -44 .local/bin/wttr --cron

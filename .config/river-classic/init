@@ -13,10 +13,14 @@ systemctl --user import-environment DISPLAY WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
 . $HOME/.config/river-classic/modes
 . $HOME/.config/river-classic/rules
 
-# remap key
+# remap key — moved to kanata (internal.kbd / external.kbd), river no longer touches keymaps
 #riverctl keyboard-layout-file "$HOME/.config/layout.xkb"
-riverctl keyboard-layout -options caps:swapescape,altwin:swap_alt_win us
+# riverctl keyboard-layout -options caps:swapescape,altwin:swap_alt_win us
 # riverctl keyboard-layout -options altwin:swap_alt_win us
+# 显式空 options：libxkbcommon 在 options 为 null 时会回退到 XKB_DEFAULT_OPTIONS 环境变量
+# （旧 profile.sh 曾设置 caps:swapescape,altwin:swap_alt_win 导致 Esc/Alt 被永久交换）。
+# -options "" 确保 river 键位永远纯 us、零选项。
+riverctl keyboard-layout -options "" us
 
 # input
 riverctl focus-follows-cursor disabled

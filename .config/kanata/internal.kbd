@@ -1,0 +1,26 @@
+;; internal.kbd — 内置笔记本键盘：坏键修复 + Alt/Win 互换
+;;
+;; 抓取设备：AT Translated Set 2 keyboard（PS/2，by-path 稳定）
+;;
+;; 映射（defsrc 是"物理键"，deflayer 按位置对应"变成什么"）：
+;;   物理 Caps Lock -> s       物理 Tab -> q       物理 ` -> Tab   （q/s 损坏补偿）
+;;   物理 左 Alt -> 左 Win     物理 左 Win -> 左 Alt    （Alt/Win 互换）
+;;   物理 右 Alt -> 右 Win     物理 右 Win -> 右 Alt
+;;   Esc 保持 Esc（无任何 swapescape）
+;;
+;; 注意：lalt/lmeta 等出现两次是正常的——defsrc 里是"捕获的物理键"，
+;;       deflayer 里是"输出的键"，互换必须两个方向都写。
+
+(defcfg
+  linux-dev /dev/input/by-path/platform-i8042-serio-0-event-kbd
+  process-unmapped-keys yes
+  linux-continue-if-no-devs-found yes
+)
+
+(defsrc
+  caps tab grv lalt ralt lmeta rmeta
+)
+
+(deflayer base
+  s    q   tab lmeta rmeta lalt ralt
+)
