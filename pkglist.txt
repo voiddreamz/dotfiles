@@ -124,7 +124,6 @@ gst-plugins-ugly
 gst-thumbnailers
 gvfs-mtp
 haveged
-heroic-games-launcher-bin
 hieroglyphic
 hwdetect
 hwinfo
@@ -159,7 +158,6 @@ lldb
 logrotate
 loupe
 lsscsi
-lutris
 lvm2
 ly
 lynx
