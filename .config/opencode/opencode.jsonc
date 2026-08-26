@@ -1,0 +1,41 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "plugin": [
+    "oh-my-opencode-slim"
+  ],
+  "agent": {
+    "plan": {
+      "disable": true
+    },
+    "build": {
+      "disable": true
+    },
+    "explore": {
+      "disable": true
+    },
+    "general": {
+      "disable": true
+    }
+  },
+  "lsp": true,
+  "mcp": {
+    "arxiv": {
+      "type": "local",
+      "command": [
+        "bunx",
+        "@cyanheads/arxiv-mcp-server@latest"
+      ],
+      "enabled": true
+    },
+    "translator": {
+      "type": "remote",
+      "url": "https://t.deeptoai.com/sse",
+      "enabled": true
+    },
+    "tavily": {
+      "type": "remote",
+      "url": "https://mcp.tavily.com/mcp",
+      "enabled": true
+    }
+  }
+}
