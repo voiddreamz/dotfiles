@@ -1,0 +1,42 @@
+diff --git a/.forgejo/issue_template/config.yml b/.forgejo/issue_template/config.yml
+deleted file mode 100644
+index a8e36db..0000000
+--- a/.forgejo/issue_template/config.yml
++++ /dev/null
+@@ -1,8 +0,0 @@
+-# SPDX-FileCopyrightText: © 2024 The River Developers
+-# SPDX-License-Identifier: 0BSD
+-
+-blank_issues_enabled: true
+-contact_links:
+-  - name: IRC
+-    url: https://web.libera.chat/?channels=#river
+-    about: Join the IRC channel for river-related discussion and support
+diff --git a/.forgejo/issue_template/use_case.yml b/.forgejo/issue_template/use_case.yml
+deleted file mode 100644
+index 03854a8..0000000
+--- a/.forgejo/issue_template/use_case.yml
++++ /dev/null
+@@ -1,22 +0,0 @@
+-# SPDX-FileCopyrightText: © 2026 The River Developers
+-# SPDX-License-Identifier: 0BSD
+-
+-name: Use Case
+-description: Describe a use case not supported by river
+-labels: ["use case"]
+-body:
+-  - type: textarea
+-    id: description
+-    attributes:
+-      label: Use Case Description
+-      description: |
+-        Please describe your use case in detail.
+-
+-        Do you have a suggestion for how river could support it?
+-
+-        Are there any workarounds you have tried?
+-
+-        Don't forget to search the issue tracker in case there is
+-        already an open issue tracking support for your use case!
+-    validations:
+-      required: true

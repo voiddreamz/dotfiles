@@ -1,0 +1,216 @@
+diff --git a/src/main.zig b/src/main.zig
+index 36e2003..fcae241 100644
+--- a/src/main.zig
++++ b/src/main.zig
+@@ -294,27 +294,23 @@ const Output = struct {
+                     active_cfg.main_location == .grid;
+ 
+                 // Don't add gaps if there is only one view.
+-                if (only_one_view and cfg.smart_gaps) {
+-                    cfg.outer_gaps = 0;
+-                    cfg.inner_gaps = 0;
+-                } else {
+-                    cfg.outer_gaps = active_cfg.outer_gaps;
+-                    cfg.inner_gaps = active_cfg.inner_gaps;
+-                }
++                // Use local variables to avoid mutating global state.
++                const outer_gaps: u31 = if (only_one_view and active_cfg.smart_gaps) 0 else active_cfg.outer_gaps;
++                const inner_gaps: u31 = if (only_one_view and active_cfg.smart_gaps) 0 else active_cfg.inner_gaps;
+ 
+                 const usable_w = switch (active_cfg.main_location) {
+                     .left, .right, .monocle, .deck, .grid => @as(
+                         u31,
+                         @intFromFloat(@as(f64, @floatFromInt(ev.usable_width)) * active_cfg.width_ratio),
+-                    ) -| (2 *| cfg.outer_gaps),
+-                    .top, .bottom => @as(u31, @truncate(ev.usable_height)) -| (2 *| cfg.outer_gaps),
++                    ) -| (2 *| outer_gaps),
++                    .top, .bottom => @as(u31, @truncate(ev.usable_height)) -| (2 *| outer_gaps),
+                 };
+                 const usable_h = switch (active_cfg.main_location) {
+-                    .left, .right, .monocle, .deck, .grid => @as(u31, @truncate(ev.usable_height)) -| (2 *| cfg.outer_gaps),
++                    .left, .right, .monocle, .deck, .grid => @as(u31, @truncate(ev.usable_height)) -| (2 *| outer_gaps),
+                     .top, .bottom => @as(
+                         u31,
+                         @intFromFloat(@as(f64, @floatFromInt(ev.usable_width)) * active_cfg.width_ratio),
+-                    ) -| (2 *| cfg.outer_gaps),
++                    ) -| (2 *| outer_gaps),
+                 };
+ 
+                 // To make things pixel-perfect, we make the first main and first sec
+@@ -343,7 +339,7 @@ const Output = struct {
+                         main_h_rem = if (main_count > 0) usable_h % main_count else 0;
+ 
+                         sec_w = usable_w - main_w;
+-                        sec_h = usable_h;  // Deck windows use full height
++                        sec_h = usable_h; // Deck windows use full height
+                     } else {
+                         main_w = usable_w;
+                         main_h = usable_h / main_count;
+@@ -382,18 +378,18 @@ const Output = struct {
+                         if (i < main_count) {
+                             // Master clients stacked vertically on the left
+                             x = 0;
+-                            y = (i * main_h) + if (i > 0) cfg.inner_gaps + main_h_rem else 0;
++                            y = (i * main_h) + if (i > 0) inner_gaps + main_h_rem else 0;
+                             // Ensure we don't subtract more than available
+                             const gap_adjust = if (sec_count > 0)
+-                                @divFloor(cfg.inner_gaps, 2)
++                                @divFloor(inner_gaps, 2)
+                             else
+                                 0;
+                             width = if (main_w > gap_adjust) main_w - gap_adjust else main_w;
+                             height = (main_h + if (i == 0) main_h_rem else 0) -
+-                                (if (i > 0) cfg.inner_gaps else 0);
++                                (if (i > 0) inner_gaps else 0);
+                         } else {
+                             // Deck clients: all overlap in the same space on the right
+-                            const gap_offset = @divFloor(cfg.inner_gaps, 2);
++                            const gap_offset = @divFloor(inner_gaps, 2);
+                             x = main_w + gap_offset;
+                             y = 0;
+                             width = if (sec_w > gap_offset) sec_w - gap_offset else sec_w;
+@@ -428,7 +424,6 @@ const Output = struct {
+                         const col = i % cols;
+                         const row = i / cols;
+ 
+-
+                         x = @as(i32, @intCast(col * cell_w));
+                         y = @as(i32, @intCast(row * cell_h));
+                         width = cell_w;
+@@ -442,29 +437,29 @@ const Output = struct {
+                             height = usable_h - (row * cell_h);
+                         }
+ 
+-                        if (col > 0) x += @as(i32, @intCast(cfg.inner_gaps));
+-                        if (row > 0) y += @as(i32, @intCast(cfg.inner_gaps));
++                        if (col > 0) x += @as(i32, @intCast(inner_gaps));
++                        if (row > 0) y += @as(i32, @intCast(inner_gaps));
+ 
+-                        if (col > 0) width -|= cfg.inner_gaps;
+-                        if (col < cols - 1) width -|= cfg.inner_gaps;
++                        if (col > 0) width -|= inner_gaps;
++                        if (col < cols - 1) width -|= inner_gaps;
+ 
+-                        if (row > 0) height -|= cfg.inner_gaps;
+-                        if (row < rows - 1) height -|= cfg.inner_gaps;
++                        if (row > 0) height -|= inner_gaps;
++                        if (row < rows - 1) height -|= inner_gaps;
+                     } else {
+                         // standard tiling layouts
+                         if (i < main_count) {
+                             x = 0;
+-                            y = (i * main_h) + if (i > 0) cfg.inner_gaps + main_h_rem else 0;
+-                            width = if (sec_count > 0) main_w - cfg.inner_gaps / 2 else main_w;
++                            y = (i * main_h) + if (i > 0) inner_gaps + main_h_rem else 0;
++                            width = if (sec_count > 0) main_w - inner_gaps / 2 else main_w;
+                             height = (main_h + if (i == 0) main_h_rem else 0) -
+-                                if (i > 0) cfg.inner_gaps else 0;
++                                if (i > 0) inner_gaps else 0;
+                         } else {
+-                            x = (main_w - cfg.inner_gaps / 2) + cfg.inner_gaps;
++                            x = (main_w - inner_gaps / 2) + inner_gaps;
+                             y = (i - main_count) * sec_h +
+-                                if (i > main_count) cfg.inner_gaps + sec_h_rem else 0;
+-                            width = sec_w - cfg.inner_gaps / 2;
++                                if (i > main_count) inner_gaps + sec_h_rem else 0;
++                            width = sec_w - inner_gaps / 2;
+                             height = (sec_h + if (i == main_count) sec_h_rem else 0) -
+-                                if (i > main_count) cfg.inner_gaps else 0;
++                                if (i > main_count) inner_gaps else 0;
+                         }
+                     }
+ 
+@@ -474,71 +469,73 @@ const Output = struct {
+ 
+                     switch (active_cfg.main_location) {
+                         .left => layout.pushViewDimensions(
+-                            x +| cfg.outer_gaps,
+-                            y +| cfg.outer_gaps,
++                            x +| outer_gaps,
++                            y +| outer_gaps,
+                             width,
+                             height,
+                             ev.serial,
+                         ),
+                         .right => layout.pushViewDimensions(
+-                            usable_w - width -| x +| cfg.outer_gaps,
+-                            y +| cfg.outer_gaps,
++                            usable_w - width -| x +| outer_gaps,
++                            y +| outer_gaps,
+                             width,
+                             height,
+                             ev.serial,
+                         ),
+                         .top => layout.pushViewDimensions(
+-                            y +| cfg.outer_gaps,
+-                            x +| cfg.outer_gaps,
++                            y +| outer_gaps,
++                            x +| outer_gaps,
+                             height,
+                             width,
+                             ev.serial,
+                         ),
+                         .bottom => layout.pushViewDimensions(
+-                            y +| cfg.outer_gaps,
+-                            usable_w - width -| x +| cfg.outer_gaps,
++                            y +| outer_gaps,
++                            usable_w - width -| x +| outer_gaps,
+                             height,
+                             width,
+                             ev.serial,
+                         ),
+                         .monocle => layout.pushViewDimensions(
+-                            x +| cfg.outer_gaps,
+-                            y +| cfg.outer_gaps,
++                            x +| outer_gaps,
++                            y +| outer_gaps,
+                             width,
+                             height,
+                             ev.serial,
+                         ),
+                         .deck => layout.pushViewDimensions(
+-                            x +| cfg.outer_gaps,
+-                            y +| cfg.outer_gaps,
++                            x +| outer_gaps,
++                            y +| outer_gaps,
+                             width,
+                             height,
+                             ev.serial,
+                         ),
+                         .grid => layout.pushViewDimensions(
+-                            x +| cfg.outer_gaps,
+-                            y +| cfg.outer_gaps,
++                            x +| outer_gaps,
++                            y +| outer_gaps,
+                             width,
+                             height,
+                             ev.serial,
+                         ),
+                     }
+                 }
++                // Use a function-scoped buffer for layout names that require
++                // dynamic formatting. This avoids dangling pointers from
++                // block-scoped buffers whose stack memory becomes invalid
++                // after the block exits.
++                var name_buf: [32]u8 = undefined;
++
+                 const layout_name = if (active_cfg.main_location == .deck) blk: {
+                     if (ev.view_count == 1) {
+                         break :blk "[D]";
+                     } else {
+-                        var buf: [32]u8 = undefined;
+-                        const name = std.fmt.bufPrintZ(&buf, "[{}]", .{sec_count}) catch "?";
+-                        break :blk name;
++                        break :blk std.fmt.bufPrintZ(&name_buf, "[{}]", .{sec_count}) catch "?";
+                     }
+                 } else if (active_cfg.main_location == .monocle) blk: {
+                     if (ev.view_count == 1) {
+                         break :blk "[M]";
+                     } else {
+-                        var buf: [32]u8 = undefined;
+-                        const name = std.fmt.bufPrintZ(&buf, "[{}]", .{ev.view_count}) catch "?";
+-                        break :blk name;
++                        break :blk std.fmt.bufPrintZ(&name_buf, "[{}]", .{ev.view_count}) catch "?";
+                     }
+                 } else switch (active_cfg.main_location) {
+                     .left => "left",

@@ -1,0 +1,16 @@
+diff --git a/river/main.zig b/river/main.zig
+index d2f9481..eabbc34 100644
+--- a/river/main.zig
++++ b/river/main.zig
+@@ -143,9 +143,9 @@ pub fn main() anyerror!void {
+ fn defaultInitPath() !?[:0]const u8 {
+     const path = blk: {
+         if (posix.getenv("XDG_CONFIG_HOME")) |xdg_config_home| {
+-            break :blk try fs.path.joinZ(util.gpa, &[_][]const u8{ xdg_config_home, "river/init" });
++            break :blk try fs.path.joinZ(util.gpa, &[_][]const u8{ xdg_config_home, "river-classic/init" });
+         } else if (posix.getenv("HOME")) |home| {
+-            break :blk try fs.path.joinZ(util.gpa, &[_][]const u8{ home, ".config/river/init" });
++            break :blk try fs.path.joinZ(util.gpa, &[_][]const u8{ home, ".config/river-classic/init" });
+         } else {
+             return null;
+         }
