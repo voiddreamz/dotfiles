@@ -9,11 +9,11 @@
 | 内容 | 位置 | 说明 |
 |---|---|---|
 | dotfiles / 配置 / 技能 / 包清单 / 源码清单 / patch / 本指南 | **本仓库** | ✅ 双远端，clone 即得，无需其他备份 |
-| 密钥与凭据（`.ssh` `.gnupg` `.mbsyncrc` `.gitconfig`） | 用户自行处理 | 不在此仓库。若新系统上缺失，**提醒用户从旧机器拷贝** |
-| `doc/` 数据 | 用户已自行移动 | 不需要恢复流程 |
+| 密钥与凭据（`.ssh` `.gnupg` `.mbsyncrc` `.gitconfig`） | **`data/linux/`**（NTFS 分区 p1） | 原样复制，重装后从该目录拷回 |
+| `doc/` 数据 | 用户已移到 **`data/linux/`** | 不需要恢复流程 |
 | 游戏存档 / Zotero / `/etc` 配置 | 不需要 | 用户明确放弃，忽略 |
 
-原系统为 EndeavourOS（Arch 系）。新系统若选择 Debian，包恢复方式见第 3 节。
+原系统为 EndeavourOS（Arch 系）。新系统若选择 Debian，包恢复方式见第 4 节。
 
 ---
 
@@ -53,7 +53,27 @@ cd ~/.config/opencode && npm install
 opencode auth login
 ```
 
-## 3. 恢复系统包
+## 3. 恢复密钥与凭据（从 data/linux/）
+
+```bash
+# 挂载 data 分区后：
+cp -a /mnt/.../data/linux/.ssh    ~/       # 或直接 rsync -a
+cp -a /mnt/.../data/linux/.gnupg  ~/
+cp /mnt/.../data/linux/.mbsyncrc  ~/
+cp /mnt/.../data/linux/.gitconfig ~/
+
+# NTFS 拷回的权限可能不对，必须重置：
+chmod 700 ~/.ssh ~/.gnupg
+chmod 600 ~/.ssh/id_ed25519 ~/.ssh/config ~/.ssh/known_hosts
+chmod 644 ~/.ssh/id_ed25519.pub
+
+# 测试：
+ssh -T git@github.com
+mbsync -a
+```
+注意：`.ssh/agent/` 目录是 ssh-agent 运行期 socket，直接忽略即可。`.mbsyncrc` 含 163 邮箱授权码，注意保管。
+
+## 4. 恢复系统包
 
 ### 若新系统是 Arch 系（EndeavourOS / CachyOS / Arch）
 ```bash
@@ -69,7 +89,7 @@ yay -S --needed - < ~/doc/heart/aurlist.txt            # 23 个 AUR 叶子包
 3. 游戏性能内核可选 XanMod（官方 Debian 仓库：`linux-xanmod-lts-x64v3`），保留原厂内核做 GRUB 回退
 4. 用户态尽量不引入 Flatpak（偏好：官方 deb + AppImage）
 
-## 4. 恢复自建源码（~/.local/src）
+## 5. 恢复自建源码（~/.local/src）
 
 按 `~/doc/heart/src-manifest.md` 逐项重建：
 ```bash
@@ -82,10 +102,11 @@ git apply ~/doc/heart/patches/<项目名>.patch
 - `anich/`、`qq/`：下载的应用，非源码构建，按清单说明重新获取即可
 - `~/.local/bin/*` 的 149 个软链指向 `../../doc/heart/.local/bin/`，随 heart 自动恢复
 
-## 5. 验证清单（全部通过才算恢复完成）
+## 6. 验证清单（全部通过才算恢复完成）
 
 - [ ] `ls -la ~/.config` 软链与 heart/.config 一致，无 broken 链接
-- [ ] `ssh -T git@github.com` 正常（密钥缺失则提醒用户手动拷贝）
+- [ ] `ssh -T git@github.com` 正常
+- [ ] `mbsync -a` 邮件拉取正常
 - [ ] `opencode` 启动后 13 个自定义技能可加载（paper-translator 等）
 - [ ] 核心命令存在：`which mpv zathura octave newsboat qutebrowser`
 - [ ] `~/.local/src` 关键项目可构建（dam / river 等）
@@ -96,7 +117,7 @@ git apply ~/doc/heart/patches/<项目名>.patch
 ## 附：原系统关键事实备忘
 
 - 桌面：sway（Wayland）；hyprland 实验过但主力是 sway；river 系多个分支在 .local/src
-- 输入法：fcitx5；浏览器：qutebrowser 等；邮件：mbsync(163) + neomutt（`.mbsyncrc` 由用户提供）
+- 输入法：fcitx5；浏览器：qutebrowser 等；邮件：mbsync(163) + neomutt（`.mbsyncrc` 在 data/linux/）
 - 学术：octave + 统计包、texlive；笔记：Scrivano（手写）
 - 原包清单含 archlinuxcn 仓库（二进制 AUR 包来源），Arch 系恢复时记得启用
 - 硬件：AMD CPU（amd-ucode）、TLP 电源管理、NVIDIA 需装专有驱动
